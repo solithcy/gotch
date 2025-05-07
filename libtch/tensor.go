@@ -418,8 +418,10 @@ func AtoAdam(learningRate, beta1, beta2, weightDecay float64) Coptimizer {
 	cbeta1 := *(*C.double)(unsafe.Pointer(&beta1))
 	cbeta2 := *(*C.double)(unsafe.Pointer(&beta2))
 	cweightDecay := *(*C.double)(unsafe.Pointer(&weightDecay))
+	eps := 1e-8
+	ceps := *(*C.double)(unsafe.Pointer(&eps))
 
-	return C.ato_adam(clearningRate, cbeta1, cbeta2, cweightDecay)
+	return C.ato_adam(clearningRate, cbeta1, cbeta2, cweightDecay, ceps, C.bool(false))
 }
 
 func AtoAdamW(learningRate, beta1, beta2, weightDecay float64) Coptimizer {
@@ -427,8 +429,10 @@ func AtoAdamW(learningRate, beta1, beta2, weightDecay float64) Coptimizer {
 	cbeta1 := *(*C.double)(unsafe.Pointer(&beta1))
 	cbeta2 := *(*C.double)(unsafe.Pointer(&beta2))
 	cweightDecay := *(*C.double)(unsafe.Pointer(&weightDecay))
+	eps := 1e-8
+	ceps := *(*C.double)(unsafe.Pointer(&eps))
 
-	return C.ato_adamw(clearningRate, cbeta1, cbeta2, cweightDecay)
+	return C.ato_adamw(clearningRate, cbeta1, cbeta2, cweightDecay, ceps, C.bool(false))
 }
 
 /*

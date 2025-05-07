@@ -3588,16 +3588,6 @@ func (ts *Tensor) Must_SparseMmReduceImpl(other *Tensor, reduce string, del bool
 	return retVal0, retVal1
 }
 
-func Must_SparseSemiStructuredAddmm(input *Tensor, mat1 *Tensor, mat1Meta *Tensor, mat2 *Tensor, outDtype gotch.DType) (retVal *Tensor) {
-
-	retVal, err := _SparseSemiStructuredAddmm(input, mat1, mat1Meta, mat2, outDtype)
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	return retVal
-}
-
 func Must_SparseSemiStructuredApply(input *Tensor, threadMasks *Tensor) (retVal0 *Tensor, retVal1 *Tensor) {
 
 	retVal0, retVal1, err := _SparseSemiStructuredApply(input, threadMasks)

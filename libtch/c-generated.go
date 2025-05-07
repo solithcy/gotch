@@ -1982,10 +1982,6 @@ func Atg_SparseMmReduceImpl(ptr *Ctensor, self Ctensor, other Ctensor, reduce st
 	creduceLen := *(*C.int)(unsafe.Pointer(&reduceLen))
 	C.atg__sparse_mm_reduce_impl(ptr, self, other, creduce, creduceLen)
 }
-func Atg_SparseSemiStructuredAddmm(ptr *Ctensor, input Ctensor, mat1 Ctensor, mat1Meta Ctensor, mat2 Ctensor, outDtype int32) {
-	coutDtype := *(*C.int)(unsafe.Pointer(&outDtype))
-	C.atg__sparse_semi_structured_addmm(ptr, input, mat1, mat1Meta, mat2, coutDtype)
-}
 func Atg_SparseSemiStructuredApply(ptr *Ctensor, input Ctensor, threadMasks Ctensor) {
 	C.atg__sparse_semi_structured_apply(ptr, input, threadMasks)
 }

@@ -7526,22 +7526,6 @@ func (ts *Tensor) _SparseMmReduceImpl(other *Tensor, reduce string, del bool) (r
 	return retVal0, retVal1, err
 }
 
-// func.returns = `fixed 1`:
-// --------------------------
-
-func _SparseSemiStructuredAddmm(input *Tensor, mat1 *Tensor, mat1Meta *Tensor, mat2 *Tensor, outDtype gotch.DType) (retVal *Tensor, err error) {
-	ptr := (*lib.Ctensor)(unsafe.Pointer(C.malloc(0)))
-
-	lib.Atg_SparseSemiStructuredAddmm(ptr, input.ctensor, mat1.ctensor, mat1Meta.ctensor, mat2.ctensor, outDtype.CInt())
-	if err = TorchErr(); err != nil {
-		err = fmt.Errorf("_SparseSemiStructuredAddmm() failed: %w", err)
-		return retVal, err
-	}
-	retVal = newTensor(*ptr, "_SparseSemiStructuredAddmm")
-
-	return retVal, err
-}
-
 // func.returns = `fixed ntensors`:
 // ---------------------------------
 func _SparseSemiStructuredApply(input *Tensor, threadMasks *Tensor) (retVal0 *Tensor, retVal1 *Tensor, err error) {

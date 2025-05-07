@@ -39,7 +39,7 @@ let excluded_functions =
     ; "_assert_async"
     ; "gradient"
     ; "linalg_vector_norm"
-    ; "linalg_vector_norm_out" 
+    ; "linalg_vector_norm_out"
     ; "linalg_matrix_norm"
     ; "linalg_matrix_norm_out"
     ; "_histogramdd_bin_edges"
@@ -73,6 +73,7 @@ let excluded_functions =
     ; "sym_size"
     ; "sym_stride"
     ; "sym_storage_offset"
+    ; "_sparse_semi_structured_addmm"
     ]
 
 let no_tensor_options =
