@@ -1451,7 +1451,12 @@ func Atg_NestedSelectBackward(ptr *Ctensor, gradOutput Ctensor, self Ctensor, di
 	C.atg__nested_select_backward(ptr, gradOutput, self, cdim, cindex)
 }
 func Atg_NestedSumBackward(ptr *Ctensor, grad Ctensor, self Ctensor, dimData []int64, dimLen int, keepdim int32) {
-	cdimDataPtr := (*C.int64_t)(unsafe.Pointer(&dimData[0]))
+	var cdimDataPtr *C.int64_t
+	if dimData == nil {
+		cdimDataPtr = (*C.int64_t)(nil)
+	} else {
+		cdimDataPtr = (*C.int64_t)(unsafe.Pointer(&dimData[0]))
+	}
 	cdimLen := *(*C.int)(unsafe.Pointer(&dimLen))
 	ckeepdim := *(*C.int)(unsafe.Pointer(&keepdim))
 	C.atg__nested_sum_backward(ptr, grad, self, cdimDataPtr, cdimLen, ckeepdim)
@@ -2149,12 +2154,22 @@ func Atg_TestFunctorchFallbackOut(ptr *Ctensor, out Ctensor, self Ctensor, other
 	C.atg__test_functorch_fallback_out(ptr, out, self, other)
 }
 func Atg_TestOptionalFilledIntlist(ptr *Ctensor, values Ctensor, addendsData []int64, addendsLen int) {
-	caddendsDataPtr := (*C.int64_t)(unsafe.Pointer(&addendsData[0]))
+	var caddendsDataPtr *C.int64_t
+	if addendsData == nil {
+		caddendsDataPtr = (*C.int64_t)(nil)
+	} else {
+		caddendsDataPtr = (*C.int64_t)(unsafe.Pointer(&addendsData[0]))
+	}
 	caddendsLen := *(*C.int)(unsafe.Pointer(&addendsLen))
 	C.atg__test_optional_filled_intlist(ptr, values, caddendsDataPtr, caddendsLen)
 }
 func Atg_TestOptionalFilledIntlistOut(ptr *Ctensor, out Ctensor, values Ctensor, addendsData []int64, addendsLen int) {
-	caddendsDataPtr := (*C.int64_t)(unsafe.Pointer(&addendsData[0]))
+	var caddendsDataPtr *C.int64_t
+	if addendsData == nil {
+		caddendsDataPtr = (*C.int64_t)(nil)
+	} else {
+		caddendsDataPtr = (*C.int64_t)(unsafe.Pointer(&addendsData[0]))
+	}
 	caddendsLen := *(*C.int)(unsafe.Pointer(&addendsLen))
 	C.atg__test_optional_filled_intlist_out(ptr, out, values, caddendsDataPtr, caddendsLen)
 }
@@ -2169,12 +2184,22 @@ func Atg_TestOptionalFloatlistOut(ptr *Ctensor, out Ctensor, values Ctensor, add
 	C.atg__test_optional_floatlist_out(ptr, out, values, caddendsDataPtr, caddendsLen)
 }
 func Atg_TestOptionalIntlist(ptr *Ctensor, values Ctensor, addendsData []int64, addendsLen int) {
-	caddendsDataPtr := (*C.int64_t)(unsafe.Pointer(&addendsData[0]))
+	var caddendsDataPtr *C.int64_t
+	if addendsData == nil {
+		caddendsDataPtr = (*C.int64_t)(nil)
+	} else {
+		caddendsDataPtr = (*C.int64_t)(unsafe.Pointer(&addendsData[0]))
+	}
 	caddendsLen := *(*C.int)(unsafe.Pointer(&addendsLen))
 	C.atg__test_optional_intlist(ptr, values, caddendsDataPtr, caddendsLen)
 }
 func Atg_TestOptionalIntlistOut(ptr *Ctensor, out Ctensor, values Ctensor, addendsData []int64, addendsLen int) {
-	caddendsDataPtr := (*C.int64_t)(unsafe.Pointer(&addendsData[0]))
+	var caddendsDataPtr *C.int64_t
+	if addendsData == nil {
+		caddendsDataPtr = (*C.int64_t)(nil)
+	} else {
+		caddendsDataPtr = (*C.int64_t)(unsafe.Pointer(&addendsData[0]))
+	}
 	caddendsLen := *(*C.int)(unsafe.Pointer(&addendsLen))
 	C.atg__test_optional_intlist_out(ptr, out, values, caddendsDataPtr, caddendsLen)
 }
@@ -2224,7 +2249,12 @@ func Atg_ToDenseOut(ptr *Ctensor, out Ctensor, self Ctensor, dtype int32, masked
 }
 func Atg_ToSparse(ptr *Ctensor, self Ctensor, layout int8, blocksizeData []int64, blocksizeLen int, denseDimVal int64, denseDimNull int) {
 	clayout := *(*C.int8_t)(unsafe.Pointer(&layout))
-	cblocksizeDataPtr := (*C.int64_t)(unsafe.Pointer(&blocksizeData[0]))
+	var cblocksizeDataPtr *C.int64_t
+	if blocksizeData == nil {
+		cblocksizeDataPtr = (*C.int64_t)(nil)
+	} else {
+		cblocksizeDataPtr = (*C.int64_t)(unsafe.Pointer(&blocksizeData[0]))
+	}
 	cblocksizeLen := *(*C.int)(unsafe.Pointer(&blocksizeLen))
 	cdenseDimVal := *(*C.int64_t)(unsafe.Pointer(&denseDimVal))
 	cdenseDimNull := *(*C.uint8_t)(unsafe.Pointer(&denseDimNull))
@@ -2280,7 +2310,12 @@ func Atg_ToSparseCsrOut(ptr *Ctensor, out Ctensor, self Ctensor, denseDimVal int
 }
 func Atg_ToSparseOut(ptr *Ctensor, out Ctensor, self Ctensor, layout int8, blocksizeData []int64, blocksizeLen int, denseDimVal int64, denseDimNull int) {
 	clayout := *(*C.int8_t)(unsafe.Pointer(&layout))
-	cblocksizeDataPtr := (*C.int64_t)(unsafe.Pointer(&blocksizeData[0]))
+	var cblocksizeDataPtr *C.int64_t
+	if blocksizeData == nil {
+		cblocksizeDataPtr = (*C.int64_t)(nil)
+	} else {
+		cblocksizeDataPtr = (*C.int64_t)(unsafe.Pointer(&blocksizeData[0]))
+	}
 	cblocksizeLen := *(*C.int)(unsafe.Pointer(&blocksizeLen))
 	cdenseDimVal := *(*C.int64_t)(unsafe.Pointer(&denseDimVal))
 	cdenseDimNull := *(*C.uint8_t)(unsafe.Pointer(&denseDimNull))
@@ -2448,7 +2483,12 @@ func Atg_UpsampleBicubic2dAaOut(ptr *Ctensor, out Ctensor, self Ctensor, outputS
 	C.atg__upsample_bicubic2d_aa_out(ptr, out, self, coutputSizeDataPtr, coutputSizeLen, calignCorners, cscalesHVal, cscalesHNull, cscalesWVal, cscalesWNull)
 }
 func Atg_UpsampleBicubic2dAaVec(ptr *Ctensor, input Ctensor, outputSizeData []int64, outputSizeLen int, alignCorners int32, scaleFactorsData []float64, scaleFactorsLen int) {
-	coutputSizeDataPtr := (*C.int64_t)(unsafe.Pointer(&outputSizeData[0]))
+	var coutputSizeDataPtr *C.int64_t
+	if outputSizeData == nil {
+		coutputSizeDataPtr = (*C.int64_t)(nil)
+	} else {
+		coutputSizeDataPtr = (*C.int64_t)(unsafe.Pointer(&outputSizeData[0]))
+	}
 	coutputSizeLen := *(*C.int)(unsafe.Pointer(&outputSizeLen))
 	calignCorners := *(*C.int)(unsafe.Pointer(&alignCorners))
 	cscaleFactorsDataPtr := (*C.double)(unsafe.Pointer(&scaleFactorsData[0]))
@@ -2500,7 +2540,12 @@ func Atg_UpsampleBilinear2dAaOut(ptr *Ctensor, out Ctensor, self Ctensor, output
 	C.atg__upsample_bilinear2d_aa_out(ptr, out, self, coutputSizeDataPtr, coutputSizeLen, calignCorners, cscalesHVal, cscalesHNull, cscalesWVal, cscalesWNull)
 }
 func Atg_UpsampleBilinear2dAaVec(ptr *Ctensor, input Ctensor, outputSizeData []int64, outputSizeLen int, alignCorners int32, scaleFactorsData []float64, scaleFactorsLen int) {
-	coutputSizeDataPtr := (*C.int64_t)(unsafe.Pointer(&outputSizeData[0]))
+	var coutputSizeDataPtr *C.int64_t
+	if outputSizeData == nil {
+		coutputSizeDataPtr = (*C.int64_t)(nil)
+	} else {
+		coutputSizeDataPtr = (*C.int64_t)(unsafe.Pointer(&outputSizeData[0]))
+	}
 	coutputSizeLen := *(*C.int)(unsafe.Pointer(&outputSizeLen))
 	calignCorners := *(*C.int)(unsafe.Pointer(&alignCorners))
 	cscaleFactorsDataPtr := (*C.double)(unsafe.Pointer(&scaleFactorsData[0]))
@@ -2540,7 +2585,12 @@ func Atg_UpsampleNearestExact1dOut(ptr *Ctensor, out Ctensor, self Ctensor, outp
 	C.atg__upsample_nearest_exact1d_out(ptr, out, self, coutputSizeDataPtr, coutputSizeLen, cscalesVal, cscalesNull)
 }
 func Atg_UpsampleNearestExact1dVec(ptr *Ctensor, input Ctensor, outputSizeData []int64, outputSizeLen int, scaleFactorsData []float64, scaleFactorsLen int) {
-	coutputSizeDataPtr := (*C.int64_t)(unsafe.Pointer(&outputSizeData[0]))
+	var coutputSizeDataPtr *C.int64_t
+	if outputSizeData == nil {
+		coutputSizeDataPtr = (*C.int64_t)(nil)
+	} else {
+		coutputSizeDataPtr = (*C.int64_t)(unsafe.Pointer(&outputSizeData[0]))
+	}
 	coutputSizeLen := *(*C.int)(unsafe.Pointer(&outputSizeLen))
 	cscaleFactorsDataPtr := (*C.double)(unsafe.Pointer(&scaleFactorsData[0]))
 	cscaleFactorsLen := *(*C.int)(unsafe.Pointer(&scaleFactorsLen))
@@ -2587,7 +2637,12 @@ func Atg_UpsampleNearestExact2dOut(ptr *Ctensor, out Ctensor, self Ctensor, outp
 	C.atg__upsample_nearest_exact2d_out(ptr, out, self, coutputSizeDataPtr, coutputSizeLen, cscalesHVal, cscalesHNull, cscalesWVal, cscalesWNull)
 }
 func Atg_UpsampleNearestExact2dVec(ptr *Ctensor, input Ctensor, outputSizeData []int64, outputSizeLen int, scaleFactorsData []float64, scaleFactorsLen int) {
-	coutputSizeDataPtr := (*C.int64_t)(unsafe.Pointer(&outputSizeData[0]))
+	var coutputSizeDataPtr *C.int64_t
+	if outputSizeData == nil {
+		coutputSizeDataPtr = (*C.int64_t)(nil)
+	} else {
+		coutputSizeDataPtr = (*C.int64_t)(unsafe.Pointer(&outputSizeData[0]))
+	}
 	coutputSizeLen := *(*C.int)(unsafe.Pointer(&outputSizeLen))
 	cscaleFactorsDataPtr := (*C.double)(unsafe.Pointer(&scaleFactorsData[0]))
 	cscaleFactorsLen := *(*C.int)(unsafe.Pointer(&scaleFactorsLen))
@@ -2642,7 +2697,12 @@ func Atg_UpsampleNearestExact3dOut(ptr *Ctensor, out Ctensor, self Ctensor, outp
 	C.atg__upsample_nearest_exact3d_out(ptr, out, self, coutputSizeDataPtr, coutputSizeLen, cscalesDVal, cscalesDNull, cscalesHVal, cscalesHNull, cscalesWVal, cscalesWNull)
 }
 func Atg_UpsampleNearestExact3dVec(ptr *Ctensor, input Ctensor, outputSizeData []int64, outputSizeLen int, scaleFactorsData []float64, scaleFactorsLen int) {
-	coutputSizeDataPtr := (*C.int64_t)(unsafe.Pointer(&outputSizeData[0]))
+	var coutputSizeDataPtr *C.int64_t
+	if outputSizeData == nil {
+		coutputSizeDataPtr = (*C.int64_t)(nil)
+	} else {
+		coutputSizeDataPtr = (*C.int64_t)(unsafe.Pointer(&outputSizeData[0]))
+	}
 	coutputSizeLen := *(*C.int)(unsafe.Pointer(&outputSizeLen))
 	cscaleFactorsDataPtr := (*C.double)(unsafe.Pointer(&scaleFactorsData[0]))
 	cscaleFactorsLen := *(*C.int)(unsafe.Pointer(&scaleFactorsLen))
@@ -2957,13 +3017,23 @@ func AtgAllDim(ptr *Ctensor, self Ctensor, dim int64, keepdim int32) {
 	C.atg_all_dim(ptr, self, cdim, ckeepdim)
 }
 func AtgAllDims(ptr *Ctensor, self Ctensor, dimData []int64, dimLen int, keepdim int32) {
-	cdimDataPtr := (*C.int64_t)(unsafe.Pointer(&dimData[0]))
+	var cdimDataPtr *C.int64_t
+	if dimData == nil {
+		cdimDataPtr = (*C.int64_t)(nil)
+	} else {
+		cdimDataPtr = (*C.int64_t)(unsafe.Pointer(&dimData[0]))
+	}
 	cdimLen := *(*C.int)(unsafe.Pointer(&dimLen))
 	ckeepdim := *(*C.int)(unsafe.Pointer(&keepdim))
 	C.atg_all_dims(ptr, self, cdimDataPtr, cdimLen, ckeepdim)
 }
 func AtgAllDimsOut(ptr *Ctensor, out Ctensor, self Ctensor, dimData []int64, dimLen int, keepdim int32) {
-	cdimDataPtr := (*C.int64_t)(unsafe.Pointer(&dimData[0]))
+	var cdimDataPtr *C.int64_t
+	if dimData == nil {
+		cdimDataPtr = (*C.int64_t)(nil)
+	} else {
+		cdimDataPtr = (*C.int64_t)(unsafe.Pointer(&dimData[0]))
+	}
 	cdimLen := *(*C.int)(unsafe.Pointer(&dimLen))
 	ckeepdim := *(*C.int)(unsafe.Pointer(&keepdim))
 	C.atg_all_dims_out(ptr, out, self, cdimDataPtr, cdimLen, ckeepdim)
@@ -3048,13 +3118,23 @@ func AtgAnyDim(ptr *Ctensor, self Ctensor, dim int64, keepdim int32) {
 	C.atg_any_dim(ptr, self, cdim, ckeepdim)
 }
 func AtgAnyDims(ptr *Ctensor, self Ctensor, dimData []int64, dimLen int, keepdim int32) {
-	cdimDataPtr := (*C.int64_t)(unsafe.Pointer(&dimData[0]))
+	var cdimDataPtr *C.int64_t
+	if dimData == nil {
+		cdimDataPtr = (*C.int64_t)(nil)
+	} else {
+		cdimDataPtr = (*C.int64_t)(unsafe.Pointer(&dimData[0]))
+	}
 	cdimLen := *(*C.int)(unsafe.Pointer(&dimLen))
 	ckeepdim := *(*C.int)(unsafe.Pointer(&keepdim))
 	C.atg_any_dims(ptr, self, cdimDataPtr, cdimLen, ckeepdim)
 }
 func AtgAnyDimsOut(ptr *Ctensor, out Ctensor, self Ctensor, dimData []int64, dimLen int, keepdim int32) {
-	cdimDataPtr := (*C.int64_t)(unsafe.Pointer(&dimData[0]))
+	var cdimDataPtr *C.int64_t
+	if dimData == nil {
+		cdimDataPtr = (*C.int64_t)(nil)
+	} else {
+		cdimDataPtr = (*C.int64_t)(unsafe.Pointer(&dimData[0]))
+	}
 	cdimLen := *(*C.int)(unsafe.Pointer(&dimLen))
 	ckeepdim := *(*C.int)(unsafe.Pointer(&keepdim))
 	C.atg_any_dims_out(ptr, out, self, cdimDataPtr, cdimLen, ckeepdim)
@@ -4894,7 +4974,12 @@ func AtgEinsum(ptr *Ctensor, equation string, tensorsData []Ctensor, tensorsLen 
 	cequationLen := *(*C.int)(unsafe.Pointer(&equationLen))
 	ctensorsDataPtr := (*Ctensor)(unsafe.Pointer(&tensorsData[0]))
 	ctensorsLen := *(*C.int)(unsafe.Pointer(&tensorsLen))
-	cpathDataPtr := (*C.int64_t)(unsafe.Pointer(&pathData[0]))
+	var cpathDataPtr *C.int64_t
+	if pathData == nil {
+		cpathDataPtr = (*C.int64_t)(nil)
+	} else {
+		cpathDataPtr = (*C.int64_t)(unsafe.Pointer(&pathData[0]))
+	}
 	cpathLen := *(*C.int)(unsafe.Pointer(&pathLen))
 	C.atg_einsum(ptr, cequation, cequationLen, ctensorsDataPtr, ctensorsLen, cpathDataPtr, cpathLen)
 }
@@ -5283,7 +5368,12 @@ func AtgFftFft(ptr *Ctensor, self Ctensor, nVal int64, nNull int, dim int64, nor
 	C.atg_fft_fft(ptr, self, cnVal, cnNull, cdim, cnorm, cnormLen)
 }
 func AtgFftFft2(ptr *Ctensor, self Ctensor, sData []int64, sLen int, dimData []int64, dimLen int, norm string) {
-	csDataPtr := (*C.int64_t)(unsafe.Pointer(&sData[0]))
+	var csDataPtr *C.int64_t
+	if sData == nil {
+		csDataPtr = (*C.int64_t)(nil)
+	} else {
+		csDataPtr = (*C.int64_t)(unsafe.Pointer(&sData[0]))
+	}
 	csLen := *(*C.int)(unsafe.Pointer(&sLen))
 	cdimDataPtr := (*C.int64_t)(unsafe.Pointer(&dimData[0]))
 	cdimLen := *(*C.int)(unsafe.Pointer(&dimLen))
@@ -5293,7 +5383,12 @@ func AtgFftFft2(ptr *Ctensor, self Ctensor, sData []int64, sLen int, dimData []i
 	C.atg_fft_fft2(ptr, self, csDataPtr, csLen, cdimDataPtr, cdimLen, cnorm, cnormLen)
 }
 func AtgFftFft2Out(ptr *Ctensor, out Ctensor, self Ctensor, sData []int64, sLen int, dimData []int64, dimLen int, norm string) {
-	csDataPtr := (*C.int64_t)(unsafe.Pointer(&sData[0]))
+	var csDataPtr *C.int64_t
+	if sData == nil {
+		csDataPtr = (*C.int64_t)(nil)
+	} else {
+		csDataPtr = (*C.int64_t)(unsafe.Pointer(&sData[0]))
+	}
 	csLen := *(*C.int)(unsafe.Pointer(&sLen))
 	cdimDataPtr := (*C.int64_t)(unsafe.Pointer(&dimData[0]))
 	cdimLen := *(*C.int)(unsafe.Pointer(&dimLen))
@@ -5324,9 +5419,19 @@ func AtgFftFftfreqOut(ptr *Ctensor, out Ctensor, n int64, d float64) {
 	C.atg_fft_fftfreq_out(ptr, out, cn, cd)
 }
 func AtgFftFftn(ptr *Ctensor, self Ctensor, sData []int64, sLen int, dimData []int64, dimLen int, norm string) {
-	csDataPtr := (*C.int64_t)(unsafe.Pointer(&sData[0]))
+	var csDataPtr *C.int64_t
+	if sData == nil {
+		csDataPtr = (*C.int64_t)(nil)
+	} else {
+		csDataPtr = (*C.int64_t)(unsafe.Pointer(&sData[0]))
+	}
 	csLen := *(*C.int)(unsafe.Pointer(&sLen))
-	cdimDataPtr := (*C.int64_t)(unsafe.Pointer(&dimData[0]))
+	var cdimDataPtr *C.int64_t
+	if dimData == nil {
+		cdimDataPtr = (*C.int64_t)(nil)
+	} else {
+		cdimDataPtr = (*C.int64_t)(unsafe.Pointer(&dimData[0]))
+	}
 	cdimLen := *(*C.int)(unsafe.Pointer(&dimLen))
 	cnorm := C.CString(norm)
 	normLen := len(norm)
@@ -5334,9 +5439,19 @@ func AtgFftFftn(ptr *Ctensor, self Ctensor, sData []int64, sLen int, dimData []i
 	C.atg_fft_fftn(ptr, self, csDataPtr, csLen, cdimDataPtr, cdimLen, cnorm, cnormLen)
 }
 func AtgFftFftnOut(ptr *Ctensor, out Ctensor, self Ctensor, sData []int64, sLen int, dimData []int64, dimLen int, norm string) {
-	csDataPtr := (*C.int64_t)(unsafe.Pointer(&sData[0]))
+	var csDataPtr *C.int64_t
+	if sData == nil {
+		csDataPtr = (*C.int64_t)(nil)
+	} else {
+		csDataPtr = (*C.int64_t)(unsafe.Pointer(&sData[0]))
+	}
 	csLen := *(*C.int)(unsafe.Pointer(&sLen))
-	cdimDataPtr := (*C.int64_t)(unsafe.Pointer(&dimData[0]))
+	var cdimDataPtr *C.int64_t
+	if dimData == nil {
+		cdimDataPtr = (*C.int64_t)(nil)
+	} else {
+		cdimDataPtr = (*C.int64_t)(unsafe.Pointer(&dimData[0]))
+	}
 	cdimLen := *(*C.int)(unsafe.Pointer(&dimLen))
 	cnorm := C.CString(norm)
 	normLen := len(norm)
@@ -5344,7 +5459,12 @@ func AtgFftFftnOut(ptr *Ctensor, out Ctensor, self Ctensor, sData []int64, sLen 
 	C.atg_fft_fftn_out(ptr, out, self, csDataPtr, csLen, cdimDataPtr, cdimLen, cnorm, cnormLen)
 }
 func AtgFftFftshift(ptr *Ctensor, self Ctensor, dimData []int64, dimLen int) {
-	cdimDataPtr := (*C.int64_t)(unsafe.Pointer(&dimData[0]))
+	var cdimDataPtr *C.int64_t
+	if dimData == nil {
+		cdimDataPtr = (*C.int64_t)(nil)
+	} else {
+		cdimDataPtr = (*C.int64_t)(unsafe.Pointer(&dimData[0]))
+	}
 	cdimLen := *(*C.int)(unsafe.Pointer(&dimLen))
 	C.atg_fft_fftshift(ptr, self, cdimDataPtr, cdimLen)
 }
@@ -5358,7 +5478,12 @@ func AtgFftHfft(ptr *Ctensor, self Ctensor, nVal int64, nNull int, dim int64, no
 	C.atg_fft_hfft(ptr, self, cnVal, cnNull, cdim, cnorm, cnormLen)
 }
 func AtgFftHfft2(ptr *Ctensor, self Ctensor, sData []int64, sLen int, dimData []int64, dimLen int, norm string) {
-	csDataPtr := (*C.int64_t)(unsafe.Pointer(&sData[0]))
+	var csDataPtr *C.int64_t
+	if sData == nil {
+		csDataPtr = (*C.int64_t)(nil)
+	} else {
+		csDataPtr = (*C.int64_t)(unsafe.Pointer(&sData[0]))
+	}
 	csLen := *(*C.int)(unsafe.Pointer(&sLen))
 	cdimDataPtr := (*C.int64_t)(unsafe.Pointer(&dimData[0]))
 	cdimLen := *(*C.int)(unsafe.Pointer(&dimLen))
@@ -5368,7 +5493,12 @@ func AtgFftHfft2(ptr *Ctensor, self Ctensor, sData []int64, sLen int, dimData []
 	C.atg_fft_hfft2(ptr, self, csDataPtr, csLen, cdimDataPtr, cdimLen, cnorm, cnormLen)
 }
 func AtgFftHfft2Out(ptr *Ctensor, out Ctensor, self Ctensor, sData []int64, sLen int, dimData []int64, dimLen int, norm string) {
-	csDataPtr := (*C.int64_t)(unsafe.Pointer(&sData[0]))
+	var csDataPtr *C.int64_t
+	if sData == nil {
+		csDataPtr = (*C.int64_t)(nil)
+	} else {
+		csDataPtr = (*C.int64_t)(unsafe.Pointer(&sData[0]))
+	}
 	csLen := *(*C.int)(unsafe.Pointer(&sLen))
 	cdimDataPtr := (*C.int64_t)(unsafe.Pointer(&dimData[0]))
 	cdimLen := *(*C.int)(unsafe.Pointer(&dimLen))
@@ -5387,9 +5517,19 @@ func AtgFftHfftOut(ptr *Ctensor, out Ctensor, self Ctensor, nVal int64, nNull in
 	C.atg_fft_hfft_out(ptr, out, self, cnVal, cnNull, cdim, cnorm, cnormLen)
 }
 func AtgFftHfftn(ptr *Ctensor, self Ctensor, sData []int64, sLen int, dimData []int64, dimLen int, norm string) {
-	csDataPtr := (*C.int64_t)(unsafe.Pointer(&sData[0]))
+	var csDataPtr *C.int64_t
+	if sData == nil {
+		csDataPtr = (*C.int64_t)(nil)
+	} else {
+		csDataPtr = (*C.int64_t)(unsafe.Pointer(&sData[0]))
+	}
 	csLen := *(*C.int)(unsafe.Pointer(&sLen))
-	cdimDataPtr := (*C.int64_t)(unsafe.Pointer(&dimData[0]))
+	var cdimDataPtr *C.int64_t
+	if dimData == nil {
+		cdimDataPtr = (*C.int64_t)(nil)
+	} else {
+		cdimDataPtr = (*C.int64_t)(unsafe.Pointer(&dimData[0]))
+	}
 	cdimLen := *(*C.int)(unsafe.Pointer(&dimLen))
 	cnorm := C.CString(norm)
 	normLen := len(norm)
@@ -5397,9 +5537,19 @@ func AtgFftHfftn(ptr *Ctensor, self Ctensor, sData []int64, sLen int, dimData []
 	C.atg_fft_hfftn(ptr, self, csDataPtr, csLen, cdimDataPtr, cdimLen, cnorm, cnormLen)
 }
 func AtgFftHfftnOut(ptr *Ctensor, out Ctensor, self Ctensor, sData []int64, sLen int, dimData []int64, dimLen int, norm string) {
-	csDataPtr := (*C.int64_t)(unsafe.Pointer(&sData[0]))
+	var csDataPtr *C.int64_t
+	if sData == nil {
+		csDataPtr = (*C.int64_t)(nil)
+	} else {
+		csDataPtr = (*C.int64_t)(unsafe.Pointer(&sData[0]))
+	}
 	csLen := *(*C.int)(unsafe.Pointer(&sLen))
-	cdimDataPtr := (*C.int64_t)(unsafe.Pointer(&dimData[0]))
+	var cdimDataPtr *C.int64_t
+	if dimData == nil {
+		cdimDataPtr = (*C.int64_t)(nil)
+	} else {
+		cdimDataPtr = (*C.int64_t)(unsafe.Pointer(&dimData[0]))
+	}
 	cdimLen := *(*C.int)(unsafe.Pointer(&dimLen))
 	cnorm := C.CString(norm)
 	normLen := len(norm)
@@ -5416,7 +5566,12 @@ func AtgFftIfft(ptr *Ctensor, self Ctensor, nVal int64, nNull int, dim int64, no
 	C.atg_fft_ifft(ptr, self, cnVal, cnNull, cdim, cnorm, cnormLen)
 }
 func AtgFftIfft2(ptr *Ctensor, self Ctensor, sData []int64, sLen int, dimData []int64, dimLen int, norm string) {
-	csDataPtr := (*C.int64_t)(unsafe.Pointer(&sData[0]))
+	var csDataPtr *C.int64_t
+	if sData == nil {
+		csDataPtr = (*C.int64_t)(nil)
+	} else {
+		csDataPtr = (*C.int64_t)(unsafe.Pointer(&sData[0]))
+	}
 	csLen := *(*C.int)(unsafe.Pointer(&sLen))
 	cdimDataPtr := (*C.int64_t)(unsafe.Pointer(&dimData[0]))
 	cdimLen := *(*C.int)(unsafe.Pointer(&dimLen))
@@ -5426,7 +5581,12 @@ func AtgFftIfft2(ptr *Ctensor, self Ctensor, sData []int64, sLen int, dimData []
 	C.atg_fft_ifft2(ptr, self, csDataPtr, csLen, cdimDataPtr, cdimLen, cnorm, cnormLen)
 }
 func AtgFftIfft2Out(ptr *Ctensor, out Ctensor, self Ctensor, sData []int64, sLen int, dimData []int64, dimLen int, norm string) {
-	csDataPtr := (*C.int64_t)(unsafe.Pointer(&sData[0]))
+	var csDataPtr *C.int64_t
+	if sData == nil {
+		csDataPtr = (*C.int64_t)(nil)
+	} else {
+		csDataPtr = (*C.int64_t)(unsafe.Pointer(&sData[0]))
+	}
 	csLen := *(*C.int)(unsafe.Pointer(&sLen))
 	cdimDataPtr := (*C.int64_t)(unsafe.Pointer(&dimData[0]))
 	cdimLen := *(*C.int)(unsafe.Pointer(&dimLen))
@@ -5445,9 +5605,19 @@ func AtgFftIfftOut(ptr *Ctensor, out Ctensor, self Ctensor, nVal int64, nNull in
 	C.atg_fft_ifft_out(ptr, out, self, cnVal, cnNull, cdim, cnorm, cnormLen)
 }
 func AtgFftIfftn(ptr *Ctensor, self Ctensor, sData []int64, sLen int, dimData []int64, dimLen int, norm string) {
-	csDataPtr := (*C.int64_t)(unsafe.Pointer(&sData[0]))
+	var csDataPtr *C.int64_t
+	if sData == nil {
+		csDataPtr = (*C.int64_t)(nil)
+	} else {
+		csDataPtr = (*C.int64_t)(unsafe.Pointer(&sData[0]))
+	}
 	csLen := *(*C.int)(unsafe.Pointer(&sLen))
-	cdimDataPtr := (*C.int64_t)(unsafe.Pointer(&dimData[0]))
+	var cdimDataPtr *C.int64_t
+	if dimData == nil {
+		cdimDataPtr = (*C.int64_t)(nil)
+	} else {
+		cdimDataPtr = (*C.int64_t)(unsafe.Pointer(&dimData[0]))
+	}
 	cdimLen := *(*C.int)(unsafe.Pointer(&dimLen))
 	cnorm := C.CString(norm)
 	normLen := len(norm)
@@ -5455,9 +5625,19 @@ func AtgFftIfftn(ptr *Ctensor, self Ctensor, sData []int64, sLen int, dimData []
 	C.atg_fft_ifftn(ptr, self, csDataPtr, csLen, cdimDataPtr, cdimLen, cnorm, cnormLen)
 }
 func AtgFftIfftnOut(ptr *Ctensor, out Ctensor, self Ctensor, sData []int64, sLen int, dimData []int64, dimLen int, norm string) {
-	csDataPtr := (*C.int64_t)(unsafe.Pointer(&sData[0]))
+	var csDataPtr *C.int64_t
+	if sData == nil {
+		csDataPtr = (*C.int64_t)(nil)
+	} else {
+		csDataPtr = (*C.int64_t)(unsafe.Pointer(&sData[0]))
+	}
 	csLen := *(*C.int)(unsafe.Pointer(&sLen))
-	cdimDataPtr := (*C.int64_t)(unsafe.Pointer(&dimData[0]))
+	var cdimDataPtr *C.int64_t
+	if dimData == nil {
+		cdimDataPtr = (*C.int64_t)(nil)
+	} else {
+		cdimDataPtr = (*C.int64_t)(unsafe.Pointer(&dimData[0]))
+	}
 	cdimLen := *(*C.int)(unsafe.Pointer(&dimLen))
 	cnorm := C.CString(norm)
 	normLen := len(norm)
@@ -5465,7 +5645,12 @@ func AtgFftIfftnOut(ptr *Ctensor, out Ctensor, self Ctensor, sData []int64, sLen
 	C.atg_fft_ifftn_out(ptr, out, self, csDataPtr, csLen, cdimDataPtr, cdimLen, cnorm, cnormLen)
 }
 func AtgFftIfftshift(ptr *Ctensor, self Ctensor, dimData []int64, dimLen int) {
-	cdimDataPtr := (*C.int64_t)(unsafe.Pointer(&dimData[0]))
+	var cdimDataPtr *C.int64_t
+	if dimData == nil {
+		cdimDataPtr = (*C.int64_t)(nil)
+	} else {
+		cdimDataPtr = (*C.int64_t)(unsafe.Pointer(&dimData[0]))
+	}
 	cdimLen := *(*C.int)(unsafe.Pointer(&dimLen))
 	C.atg_fft_ifftshift(ptr, self, cdimDataPtr, cdimLen)
 }
@@ -5479,7 +5664,12 @@ func AtgFftIhfft(ptr *Ctensor, self Ctensor, nVal int64, nNull int, dim int64, n
 	C.atg_fft_ihfft(ptr, self, cnVal, cnNull, cdim, cnorm, cnormLen)
 }
 func AtgFftIhfft2(ptr *Ctensor, self Ctensor, sData []int64, sLen int, dimData []int64, dimLen int, norm string) {
-	csDataPtr := (*C.int64_t)(unsafe.Pointer(&sData[0]))
+	var csDataPtr *C.int64_t
+	if sData == nil {
+		csDataPtr = (*C.int64_t)(nil)
+	} else {
+		csDataPtr = (*C.int64_t)(unsafe.Pointer(&sData[0]))
+	}
 	csLen := *(*C.int)(unsafe.Pointer(&sLen))
 	cdimDataPtr := (*C.int64_t)(unsafe.Pointer(&dimData[0]))
 	cdimLen := *(*C.int)(unsafe.Pointer(&dimLen))
@@ -5489,7 +5679,12 @@ func AtgFftIhfft2(ptr *Ctensor, self Ctensor, sData []int64, sLen int, dimData [
 	C.atg_fft_ihfft2(ptr, self, csDataPtr, csLen, cdimDataPtr, cdimLen, cnorm, cnormLen)
 }
 func AtgFftIhfft2Out(ptr *Ctensor, out Ctensor, self Ctensor, sData []int64, sLen int, dimData []int64, dimLen int, norm string) {
-	csDataPtr := (*C.int64_t)(unsafe.Pointer(&sData[0]))
+	var csDataPtr *C.int64_t
+	if sData == nil {
+		csDataPtr = (*C.int64_t)(nil)
+	} else {
+		csDataPtr = (*C.int64_t)(unsafe.Pointer(&sData[0]))
+	}
 	csLen := *(*C.int)(unsafe.Pointer(&sLen))
 	cdimDataPtr := (*C.int64_t)(unsafe.Pointer(&dimData[0]))
 	cdimLen := *(*C.int)(unsafe.Pointer(&dimLen))
@@ -5508,9 +5703,19 @@ func AtgFftIhfftOut(ptr *Ctensor, out Ctensor, self Ctensor, nVal int64, nNull i
 	C.atg_fft_ihfft_out(ptr, out, self, cnVal, cnNull, cdim, cnorm, cnormLen)
 }
 func AtgFftIhfftn(ptr *Ctensor, self Ctensor, sData []int64, sLen int, dimData []int64, dimLen int, norm string) {
-	csDataPtr := (*C.int64_t)(unsafe.Pointer(&sData[0]))
+	var csDataPtr *C.int64_t
+	if sData == nil {
+		csDataPtr = (*C.int64_t)(nil)
+	} else {
+		csDataPtr = (*C.int64_t)(unsafe.Pointer(&sData[0]))
+	}
 	csLen := *(*C.int)(unsafe.Pointer(&sLen))
-	cdimDataPtr := (*C.int64_t)(unsafe.Pointer(&dimData[0]))
+	var cdimDataPtr *C.int64_t
+	if dimData == nil {
+		cdimDataPtr = (*C.int64_t)(nil)
+	} else {
+		cdimDataPtr = (*C.int64_t)(unsafe.Pointer(&dimData[0]))
+	}
 	cdimLen := *(*C.int)(unsafe.Pointer(&dimLen))
 	cnorm := C.CString(norm)
 	normLen := len(norm)
@@ -5518,9 +5723,19 @@ func AtgFftIhfftn(ptr *Ctensor, self Ctensor, sData []int64, sLen int, dimData [
 	C.atg_fft_ihfftn(ptr, self, csDataPtr, csLen, cdimDataPtr, cdimLen, cnorm, cnormLen)
 }
 func AtgFftIhfftnOut(ptr *Ctensor, out Ctensor, self Ctensor, sData []int64, sLen int, dimData []int64, dimLen int, norm string) {
-	csDataPtr := (*C.int64_t)(unsafe.Pointer(&sData[0]))
+	var csDataPtr *C.int64_t
+	if sData == nil {
+		csDataPtr = (*C.int64_t)(nil)
+	} else {
+		csDataPtr = (*C.int64_t)(unsafe.Pointer(&sData[0]))
+	}
 	csLen := *(*C.int)(unsafe.Pointer(&sLen))
-	cdimDataPtr := (*C.int64_t)(unsafe.Pointer(&dimData[0]))
+	var cdimDataPtr *C.int64_t
+	if dimData == nil {
+		cdimDataPtr = (*C.int64_t)(nil)
+	} else {
+		cdimDataPtr = (*C.int64_t)(unsafe.Pointer(&dimData[0]))
+	}
 	cdimLen := *(*C.int)(unsafe.Pointer(&dimLen))
 	cnorm := C.CString(norm)
 	normLen := len(norm)
@@ -5537,7 +5752,12 @@ func AtgFftIrfft(ptr *Ctensor, self Ctensor, nVal int64, nNull int, dim int64, n
 	C.atg_fft_irfft(ptr, self, cnVal, cnNull, cdim, cnorm, cnormLen)
 }
 func AtgFftIrfft2(ptr *Ctensor, self Ctensor, sData []int64, sLen int, dimData []int64, dimLen int, norm string) {
-	csDataPtr := (*C.int64_t)(unsafe.Pointer(&sData[0]))
+	var csDataPtr *C.int64_t
+	if sData == nil {
+		csDataPtr = (*C.int64_t)(nil)
+	} else {
+		csDataPtr = (*C.int64_t)(unsafe.Pointer(&sData[0]))
+	}
 	csLen := *(*C.int)(unsafe.Pointer(&sLen))
 	cdimDataPtr := (*C.int64_t)(unsafe.Pointer(&dimData[0]))
 	cdimLen := *(*C.int)(unsafe.Pointer(&dimLen))
@@ -5547,7 +5767,12 @@ func AtgFftIrfft2(ptr *Ctensor, self Ctensor, sData []int64, sLen int, dimData [
 	C.atg_fft_irfft2(ptr, self, csDataPtr, csLen, cdimDataPtr, cdimLen, cnorm, cnormLen)
 }
 func AtgFftIrfft2Out(ptr *Ctensor, out Ctensor, self Ctensor, sData []int64, sLen int, dimData []int64, dimLen int, norm string) {
-	csDataPtr := (*C.int64_t)(unsafe.Pointer(&sData[0]))
+	var csDataPtr *C.int64_t
+	if sData == nil {
+		csDataPtr = (*C.int64_t)(nil)
+	} else {
+		csDataPtr = (*C.int64_t)(unsafe.Pointer(&sData[0]))
+	}
 	csLen := *(*C.int)(unsafe.Pointer(&sLen))
 	cdimDataPtr := (*C.int64_t)(unsafe.Pointer(&dimData[0]))
 	cdimLen := *(*C.int)(unsafe.Pointer(&dimLen))
@@ -5566,9 +5791,19 @@ func AtgFftIrfftOut(ptr *Ctensor, out Ctensor, self Ctensor, nVal int64, nNull i
 	C.atg_fft_irfft_out(ptr, out, self, cnVal, cnNull, cdim, cnorm, cnormLen)
 }
 func AtgFftIrfftn(ptr *Ctensor, self Ctensor, sData []int64, sLen int, dimData []int64, dimLen int, norm string) {
-	csDataPtr := (*C.int64_t)(unsafe.Pointer(&sData[0]))
+	var csDataPtr *C.int64_t
+	if sData == nil {
+		csDataPtr = (*C.int64_t)(nil)
+	} else {
+		csDataPtr = (*C.int64_t)(unsafe.Pointer(&sData[0]))
+	}
 	csLen := *(*C.int)(unsafe.Pointer(&sLen))
-	cdimDataPtr := (*C.int64_t)(unsafe.Pointer(&dimData[0]))
+	var cdimDataPtr *C.int64_t
+	if dimData == nil {
+		cdimDataPtr = (*C.int64_t)(nil)
+	} else {
+		cdimDataPtr = (*C.int64_t)(unsafe.Pointer(&dimData[0]))
+	}
 	cdimLen := *(*C.int)(unsafe.Pointer(&dimLen))
 	cnorm := C.CString(norm)
 	normLen := len(norm)
@@ -5576,9 +5811,19 @@ func AtgFftIrfftn(ptr *Ctensor, self Ctensor, sData []int64, sLen int, dimData [
 	C.atg_fft_irfftn(ptr, self, csDataPtr, csLen, cdimDataPtr, cdimLen, cnorm, cnormLen)
 }
 func AtgFftIrfftnOut(ptr *Ctensor, out Ctensor, self Ctensor, sData []int64, sLen int, dimData []int64, dimLen int, norm string) {
-	csDataPtr := (*C.int64_t)(unsafe.Pointer(&sData[0]))
+	var csDataPtr *C.int64_t
+	if sData == nil {
+		csDataPtr = (*C.int64_t)(nil)
+	} else {
+		csDataPtr = (*C.int64_t)(unsafe.Pointer(&sData[0]))
+	}
 	csLen := *(*C.int)(unsafe.Pointer(&sLen))
-	cdimDataPtr := (*C.int64_t)(unsafe.Pointer(&dimData[0]))
+	var cdimDataPtr *C.int64_t
+	if dimData == nil {
+		cdimDataPtr = (*C.int64_t)(nil)
+	} else {
+		cdimDataPtr = (*C.int64_t)(unsafe.Pointer(&dimData[0]))
+	}
 	cdimLen := *(*C.int)(unsafe.Pointer(&dimLen))
 	cnorm := C.CString(norm)
 	normLen := len(norm)
@@ -5595,7 +5840,12 @@ func AtgFftRfft(ptr *Ctensor, self Ctensor, nVal int64, nNull int, dim int64, no
 	C.atg_fft_rfft(ptr, self, cnVal, cnNull, cdim, cnorm, cnormLen)
 }
 func AtgFftRfft2(ptr *Ctensor, self Ctensor, sData []int64, sLen int, dimData []int64, dimLen int, norm string) {
-	csDataPtr := (*C.int64_t)(unsafe.Pointer(&sData[0]))
+	var csDataPtr *C.int64_t
+	if sData == nil {
+		csDataPtr = (*C.int64_t)(nil)
+	} else {
+		csDataPtr = (*C.int64_t)(unsafe.Pointer(&sData[0]))
+	}
 	csLen := *(*C.int)(unsafe.Pointer(&sLen))
 	cdimDataPtr := (*C.int64_t)(unsafe.Pointer(&dimData[0]))
 	cdimLen := *(*C.int)(unsafe.Pointer(&dimLen))
@@ -5605,7 +5855,12 @@ func AtgFftRfft2(ptr *Ctensor, self Ctensor, sData []int64, sLen int, dimData []
 	C.atg_fft_rfft2(ptr, self, csDataPtr, csLen, cdimDataPtr, cdimLen, cnorm, cnormLen)
 }
 func AtgFftRfft2Out(ptr *Ctensor, out Ctensor, self Ctensor, sData []int64, sLen int, dimData []int64, dimLen int, norm string) {
-	csDataPtr := (*C.int64_t)(unsafe.Pointer(&sData[0]))
+	var csDataPtr *C.int64_t
+	if sData == nil {
+		csDataPtr = (*C.int64_t)(nil)
+	} else {
+		csDataPtr = (*C.int64_t)(unsafe.Pointer(&sData[0]))
+	}
 	csLen := *(*C.int)(unsafe.Pointer(&sLen))
 	cdimDataPtr := (*C.int64_t)(unsafe.Pointer(&dimData[0]))
 	cdimLen := *(*C.int)(unsafe.Pointer(&dimLen))
@@ -5636,9 +5891,19 @@ func AtgFftRfftfreqOut(ptr *Ctensor, out Ctensor, n int64, d float64) {
 	C.atg_fft_rfftfreq_out(ptr, out, cn, cd)
 }
 func AtgFftRfftn(ptr *Ctensor, self Ctensor, sData []int64, sLen int, dimData []int64, dimLen int, norm string) {
-	csDataPtr := (*C.int64_t)(unsafe.Pointer(&sData[0]))
+	var csDataPtr *C.int64_t
+	if sData == nil {
+		csDataPtr = (*C.int64_t)(nil)
+	} else {
+		csDataPtr = (*C.int64_t)(unsafe.Pointer(&sData[0]))
+	}
 	csLen := *(*C.int)(unsafe.Pointer(&sLen))
-	cdimDataPtr := (*C.int64_t)(unsafe.Pointer(&dimData[0]))
+	var cdimDataPtr *C.int64_t
+	if dimData == nil {
+		cdimDataPtr = (*C.int64_t)(nil)
+	} else {
+		cdimDataPtr = (*C.int64_t)(unsafe.Pointer(&dimData[0]))
+	}
 	cdimLen := *(*C.int)(unsafe.Pointer(&dimLen))
 	cnorm := C.CString(norm)
 	normLen := len(norm)
@@ -5646,9 +5911,19 @@ func AtgFftRfftn(ptr *Ctensor, self Ctensor, sData []int64, sLen int, dimData []
 	C.atg_fft_rfftn(ptr, self, csDataPtr, csLen, cdimDataPtr, cdimLen, cnorm, cnormLen)
 }
 func AtgFftRfftnOut(ptr *Ctensor, out Ctensor, self Ctensor, sData []int64, sLen int, dimData []int64, dimLen int, norm string) {
-	csDataPtr := (*C.int64_t)(unsafe.Pointer(&sData[0]))
+	var csDataPtr *C.int64_t
+	if sData == nil {
+		csDataPtr = (*C.int64_t)(nil)
+	} else {
+		csDataPtr = (*C.int64_t)(unsafe.Pointer(&sData[0]))
+	}
 	csLen := *(*C.int)(unsafe.Pointer(&sLen))
-	cdimDataPtr := (*C.int64_t)(unsafe.Pointer(&dimData[0]))
+	var cdimDataPtr *C.int64_t
+	if dimData == nil {
+		cdimDataPtr = (*C.int64_t)(nil)
+	} else {
+		cdimDataPtr = (*C.int64_t)(unsafe.Pointer(&dimData[0]))
+	}
 	cdimLen := *(*C.int)(unsafe.Pointer(&dimLen))
 	cnorm := C.CString(norm)
 	normLen := len(norm)
@@ -7199,7 +7474,12 @@ func AtgLinalgMultiDotOut(ptr *Ctensor, out Ctensor, tensorsData []Ctensor, tens
 	C.atg_linalg_multi_dot_out(ptr, out, ctensorsDataPtr, ctensorsLen)
 }
 func AtgLinalgNorm(ptr *Ctensor, self Ctensor, ord Cscalar, dimData []int64, dimLen int, keepdim int32, dtype int32) {
-	cdimDataPtr := (*C.int64_t)(unsafe.Pointer(&dimData[0]))
+	var cdimDataPtr *C.int64_t
+	if dimData == nil {
+		cdimDataPtr = (*C.int64_t)(nil)
+	} else {
+		cdimDataPtr = (*C.int64_t)(unsafe.Pointer(&dimData[0]))
+	}
 	cdimLen := *(*C.int)(unsafe.Pointer(&dimLen))
 	ckeepdim := *(*C.int)(unsafe.Pointer(&keepdim))
 	cdtype := *(*C.int)(unsafe.Pointer(&dtype))
@@ -7209,7 +7489,12 @@ func AtgLinalgNormOrdStr(ptr *Ctensor, self Ctensor, ord string, dimData []int64
 	cord := C.CString(ord)
 	ordLen := len(ord)
 	cordLen := *(*C.int)(unsafe.Pointer(&ordLen))
-	cdimDataPtr := (*C.int64_t)(unsafe.Pointer(&dimData[0]))
+	var cdimDataPtr *C.int64_t
+	if dimData == nil {
+		cdimDataPtr = (*C.int64_t)(nil)
+	} else {
+		cdimDataPtr = (*C.int64_t)(unsafe.Pointer(&dimData[0]))
+	}
 	cdimLen := *(*C.int)(unsafe.Pointer(&dimLen))
 	ckeepdim := *(*C.int)(unsafe.Pointer(&keepdim))
 	cdtype := *(*C.int)(unsafe.Pointer(&dtype))
@@ -7219,14 +7504,24 @@ func AtgLinalgNormOrdStrOut(ptr *Ctensor, out Ctensor, self Ctensor, ord string,
 	cord := C.CString(ord)
 	ordLen := len(ord)
 	cordLen := *(*C.int)(unsafe.Pointer(&ordLen))
-	cdimDataPtr := (*C.int64_t)(unsafe.Pointer(&dimData[0]))
+	var cdimDataPtr *C.int64_t
+	if dimData == nil {
+		cdimDataPtr = (*C.int64_t)(nil)
+	} else {
+		cdimDataPtr = (*C.int64_t)(unsafe.Pointer(&dimData[0]))
+	}
 	cdimLen := *(*C.int)(unsafe.Pointer(&dimLen))
 	ckeepdim := *(*C.int)(unsafe.Pointer(&keepdim))
 	cdtype := *(*C.int)(unsafe.Pointer(&dtype))
 	C.atg_linalg_norm_ord_str_out(ptr, out, self, cord, cordLen, cdimDataPtr, cdimLen, ckeepdim, cdtype)
 }
 func AtgLinalgNormOut(ptr *Ctensor, out Ctensor, self Ctensor, ord Cscalar, dimData []int64, dimLen int, keepdim int32, dtype int32) {
-	cdimDataPtr := (*C.int64_t)(unsafe.Pointer(&dimData[0]))
+	var cdimDataPtr *C.int64_t
+	if dimData == nil {
+		cdimDataPtr = (*C.int64_t)(nil)
+	} else {
+		cdimDataPtr = (*C.int64_t)(unsafe.Pointer(&dimData[0]))
+	}
 	cdimLen := *(*C.int)(unsafe.Pointer(&dimLen))
 	ckeepdim := *(*C.int)(unsafe.Pointer(&keepdim))
 	cdtype := *(*C.int)(unsafe.Pointer(&dtype))
@@ -7357,12 +7652,22 @@ func AtgLinalgTensorinvOut(ptr *Ctensor, out Ctensor, self Ctensor, ind int64) {
 	C.atg_linalg_tensorinv_out(ptr, out, self, cind)
 }
 func AtgLinalgTensorsolve(ptr *Ctensor, self Ctensor, other Ctensor, dimsData []int64, dimsLen int) {
-	cdimsDataPtr := (*C.int64_t)(unsafe.Pointer(&dimsData[0]))
+	var cdimsDataPtr *C.int64_t
+	if dimsData == nil {
+		cdimsDataPtr = (*C.int64_t)(nil)
+	} else {
+		cdimsDataPtr = (*C.int64_t)(unsafe.Pointer(&dimsData[0]))
+	}
 	cdimsLen := *(*C.int)(unsafe.Pointer(&dimsLen))
 	C.atg_linalg_tensorsolve(ptr, self, other, cdimsDataPtr, cdimsLen)
 }
 func AtgLinalgTensorsolveOut(ptr *Ctensor, out Ctensor, self Ctensor, other Ctensor, dimsData []int64, dimsLen int) {
-	cdimsDataPtr := (*C.int64_t)(unsafe.Pointer(&dimsData[0]))
+	var cdimsDataPtr *C.int64_t
+	if dimsData == nil {
+		cdimsDataPtr = (*C.int64_t)(nil)
+	} else {
+		cdimsDataPtr = (*C.int64_t)(unsafe.Pointer(&dimsData[0]))
+	}
 	cdimsLen := *(*C.int)(unsafe.Pointer(&dimsLen))
 	C.atg_linalg_tensorsolve_out(ptr, out, self, other, cdimsDataPtr, cdimsLen)
 }
@@ -8004,7 +8309,12 @@ func AtgMean(ptr *Ctensor, self Ctensor, dtype int32) {
 	C.atg_mean(ptr, self, cdtype)
 }
 func AtgMeanDim(ptr *Ctensor, self Ctensor, dimData []int64, dimLen int, keepdim int32, dtype int32) {
-	cdimDataPtr := (*C.int64_t)(unsafe.Pointer(&dimData[0]))
+	var cdimDataPtr *C.int64_t
+	if dimData == nil {
+		cdimDataPtr = (*C.int64_t)(nil)
+	} else {
+		cdimDataPtr = (*C.int64_t)(unsafe.Pointer(&dimData[0]))
+	}
 	cdimLen := *(*C.int)(unsafe.Pointer(&dimLen))
 	ckeepdim := *(*C.int)(unsafe.Pointer(&keepdim))
 	cdtype := *(*C.int)(unsafe.Pointer(&dtype))
@@ -8015,7 +8325,12 @@ func AtgMeanDtypeOut(ptr *Ctensor, out Ctensor, self Ctensor, dtype int32) {
 	C.atg_mean_dtype_out(ptr, out, self, cdtype)
 }
 func AtgMeanOut(ptr *Ctensor, out Ctensor, self Ctensor, dimData []int64, dimLen int, keepdim int32, dtype int32) {
-	cdimDataPtr := (*C.int64_t)(unsafe.Pointer(&dimData[0]))
+	var cdimDataPtr *C.int64_t
+	if dimData == nil {
+		cdimDataPtr = (*C.int64_t)(nil)
+	} else {
+		cdimDataPtr = (*C.int64_t)(unsafe.Pointer(&dimData[0]))
+	}
 	cdimLen := *(*C.int)(unsafe.Pointer(&dimLen))
 	ckeepdim := *(*C.int)(unsafe.Pointer(&keepdim))
 	cdtype := *(*C.int)(unsafe.Pointer(&dtype))
@@ -8391,7 +8706,12 @@ func AtgMkldnnReorderConv2dWeight(ptr *Ctensor, self Ctensor, paddingData []int6
 	cdilationDataPtr := (*C.int64_t)(unsafe.Pointer(&dilationData[0]))
 	cdilationLen := *(*C.int)(unsafe.Pointer(&dilationLen))
 	cgroups := *(*C.int64_t)(unsafe.Pointer(&groups))
-	cinputSizeDataPtr := (*C.int64_t)(unsafe.Pointer(&inputSizeData[0]))
+	var cinputSizeDataPtr *C.int64_t
+	if inputSizeData == nil {
+		cinputSizeDataPtr = (*C.int64_t)(nil)
+	} else {
+		cinputSizeDataPtr = (*C.int64_t)(unsafe.Pointer(&inputSizeData[0]))
+	}
 	cinputSizeLen := *(*C.int)(unsafe.Pointer(&inputSizeLen))
 	C.atg_mkldnn_reorder_conv2d_weight(ptr, self, cpaddingDataPtr, cpaddingLen, cstrideDataPtr, cstrideLen, cdilationDataPtr, cdilationLen, cgroups, cinputSizeDataPtr, cinputSizeLen)
 }
@@ -8403,7 +8723,12 @@ func AtgMkldnnReorderConv2dWeightOut(ptr *Ctensor, out Ctensor, self Ctensor, pa
 	cdilationDataPtr := (*C.int64_t)(unsafe.Pointer(&dilationData[0]))
 	cdilationLen := *(*C.int)(unsafe.Pointer(&dilationLen))
 	cgroups := *(*C.int64_t)(unsafe.Pointer(&groups))
-	cinputSizeDataPtr := (*C.int64_t)(unsafe.Pointer(&inputSizeData[0]))
+	var cinputSizeDataPtr *C.int64_t
+	if inputSizeData == nil {
+		cinputSizeDataPtr = (*C.int64_t)(nil)
+	} else {
+		cinputSizeDataPtr = (*C.int64_t)(unsafe.Pointer(&inputSizeData[0]))
+	}
 	cinputSizeLen := *(*C.int)(unsafe.Pointer(&inputSizeLen))
 	C.atg_mkldnn_reorder_conv2d_weight_out(ptr, out, self, cpaddingDataPtr, cpaddingLen, cstrideDataPtr, cstrideLen, cdilationDataPtr, cdilationLen, cgroups, cinputSizeDataPtr, cinputSizeLen)
 }
@@ -8415,7 +8740,12 @@ func AtgMkldnnReorderConv3dWeight(ptr *Ctensor, self Ctensor, paddingData []int6
 	cdilationDataPtr := (*C.int64_t)(unsafe.Pointer(&dilationData[0]))
 	cdilationLen := *(*C.int)(unsafe.Pointer(&dilationLen))
 	cgroups := *(*C.int64_t)(unsafe.Pointer(&groups))
-	cinputSizeDataPtr := (*C.int64_t)(unsafe.Pointer(&inputSizeData[0]))
+	var cinputSizeDataPtr *C.int64_t
+	if inputSizeData == nil {
+		cinputSizeDataPtr = (*C.int64_t)(nil)
+	} else {
+		cinputSizeDataPtr = (*C.int64_t)(unsafe.Pointer(&inputSizeData[0]))
+	}
 	cinputSizeLen := *(*C.int)(unsafe.Pointer(&inputSizeLen))
 	C.atg_mkldnn_reorder_conv3d_weight(ptr, self, cpaddingDataPtr, cpaddingLen, cstrideDataPtr, cstrideLen, cdilationDataPtr, cdilationLen, cgroups, cinputSizeDataPtr, cinputSizeLen)
 }
@@ -8427,7 +8757,12 @@ func AtgMkldnnReorderConv3dWeightOut(ptr *Ctensor, out Ctensor, self Ctensor, pa
 	cdilationDataPtr := (*C.int64_t)(unsafe.Pointer(&dilationData[0]))
 	cdilationLen := *(*C.int)(unsafe.Pointer(&dilationLen))
 	cgroups := *(*C.int64_t)(unsafe.Pointer(&groups))
-	cinputSizeDataPtr := (*C.int64_t)(unsafe.Pointer(&inputSizeData[0]))
+	var cinputSizeDataPtr *C.int64_t
+	if inputSizeData == nil {
+		cinputSizeDataPtr = (*C.int64_t)(nil)
+	} else {
+		cinputSizeDataPtr = (*C.int64_t)(unsafe.Pointer(&inputSizeData[0]))
+	}
 	cinputSizeLen := *(*C.int)(unsafe.Pointer(&inputSizeLen))
 	C.atg_mkldnn_reorder_conv3d_weight_out(ptr, out, self, cpaddingDataPtr, cpaddingLen, cstrideDataPtr, cstrideLen, cdilationDataPtr, cdilationLen, cgroups, cinputSizeDataPtr, cinputSizeLen)
 }
@@ -8661,14 +8996,24 @@ func AtgNanToNumOut(ptr *Ctensor, out Ctensor, self Ctensor, nanVal float64, nan
 	C.atg_nan_to_num_out(ptr, out, self, cnanVal, cnanNull, cposinfVal, cposinfNull, cneginfVal, cneginfNull)
 }
 func AtgNanmean(ptr *Ctensor, self Ctensor, dimData []int64, dimLen int, keepdim int32, dtype int32) {
-	cdimDataPtr := (*C.int64_t)(unsafe.Pointer(&dimData[0]))
+	var cdimDataPtr *C.int64_t
+	if dimData == nil {
+		cdimDataPtr = (*C.int64_t)(nil)
+	} else {
+		cdimDataPtr = (*C.int64_t)(unsafe.Pointer(&dimData[0]))
+	}
 	cdimLen := *(*C.int)(unsafe.Pointer(&dimLen))
 	ckeepdim := *(*C.int)(unsafe.Pointer(&keepdim))
 	cdtype := *(*C.int)(unsafe.Pointer(&dtype))
 	C.atg_nanmean(ptr, self, cdimDataPtr, cdimLen, ckeepdim, cdtype)
 }
 func AtgNanmeanOut(ptr *Ctensor, out Ctensor, self Ctensor, dimData []int64, dimLen int, keepdim int32, dtype int32) {
-	cdimDataPtr := (*C.int64_t)(unsafe.Pointer(&dimData[0]))
+	var cdimDataPtr *C.int64_t
+	if dimData == nil {
+		cdimDataPtr = (*C.int64_t)(nil)
+	} else {
+		cdimDataPtr = (*C.int64_t)(unsafe.Pointer(&dimData[0]))
+	}
 	cdimLen := *(*C.int)(unsafe.Pointer(&dimLen))
 	ckeepdim := *(*C.int)(unsafe.Pointer(&keepdim))
 	cdtype := *(*C.int)(unsafe.Pointer(&dtype))
@@ -8729,14 +9074,24 @@ func AtgNanquantileScalarOut(ptr *Ctensor, out Ctensor, self Ctensor, q float64,
 	C.atg_nanquantile_scalar_out(ptr, out, self, cq, cdimVal, cdimNull, ckeepdim, cinterpolation, cinterpolationLen)
 }
 func AtgNansum(ptr *Ctensor, self Ctensor, dimData []int64, dimLen int, keepdim int32, dtype int32) {
-	cdimDataPtr := (*C.int64_t)(unsafe.Pointer(&dimData[0]))
+	var cdimDataPtr *C.int64_t
+	if dimData == nil {
+		cdimDataPtr = (*C.int64_t)(nil)
+	} else {
+		cdimDataPtr = (*C.int64_t)(unsafe.Pointer(&dimData[0]))
+	}
 	cdimLen := *(*C.int)(unsafe.Pointer(&dimLen))
 	ckeepdim := *(*C.int)(unsafe.Pointer(&keepdim))
 	cdtype := *(*C.int)(unsafe.Pointer(&dtype))
 	C.atg_nansum(ptr, self, cdimDataPtr, cdimLen, ckeepdim, cdtype)
 }
 func AtgNansumOut(ptr *Ctensor, out Ctensor, self Ctensor, dimData []int64, dimLen int, keepdim int32, dtype int32) {
-	cdimDataPtr := (*C.int64_t)(unsafe.Pointer(&dimData[0]))
+	var cdimDataPtr *C.int64_t
+	if dimData == nil {
+		cdimDataPtr = (*C.int64_t)(nil)
+	} else {
+		cdimDataPtr = (*C.int64_t)(unsafe.Pointer(&dimData[0]))
+	}
 	cdimLen := *(*C.int)(unsafe.Pointer(&dimLen))
 	ckeepdim := *(*C.int)(unsafe.Pointer(&keepdim))
 	cdtype := *(*C.int)(unsafe.Pointer(&dtype))
@@ -8885,7 +9240,12 @@ func AtgNegativeOut(ptr *Ctensor, out Ctensor, self Ctensor) {
 }
 func AtgNestedToPaddedTensor(ptr *Ctensor, self Ctensor, padding float64, outputSizeData []int64, outputSizeLen int) {
 	cpadding := *(*C.double)(unsafe.Pointer(&padding))
-	coutputSizeDataPtr := (*C.int64_t)(unsafe.Pointer(&outputSizeData[0]))
+	var coutputSizeDataPtr *C.int64_t
+	if outputSizeData == nil {
+		coutputSizeDataPtr = (*C.int64_t)(nil)
+	} else {
+		coutputSizeDataPtr = (*C.int64_t)(unsafe.Pointer(&outputSizeData[0]))
+	}
 	coutputSizeLen := *(*C.int)(unsafe.Pointer(&outputSizeLen))
 	C.atg_nested_to_padded_tensor(ptr, self, cpadding, coutputSizeDataPtr, coutputSizeLen)
 }
@@ -11492,19 +11852,34 @@ func AtgStd(ptr *Ctensor, self Ctensor, unbiased int32) {
 	C.atg_std(ptr, self, cunbiased)
 }
 func AtgStdCorrection(ptr *Ctensor, self Ctensor, dimData []int64, dimLen int, correction Cscalar, keepdim int32) {
-	cdimDataPtr := (*C.int64_t)(unsafe.Pointer(&dimData[0]))
+	var cdimDataPtr *C.int64_t
+	if dimData == nil {
+		cdimDataPtr = (*C.int64_t)(nil)
+	} else {
+		cdimDataPtr = (*C.int64_t)(unsafe.Pointer(&dimData[0]))
+	}
 	cdimLen := *(*C.int)(unsafe.Pointer(&dimLen))
 	ckeepdim := *(*C.int)(unsafe.Pointer(&keepdim))
 	C.atg_std_correction(ptr, self, cdimDataPtr, cdimLen, correction, ckeepdim)
 }
 func AtgStdCorrectionOut(ptr *Ctensor, out Ctensor, self Ctensor, dimData []int64, dimLen int, correction Cscalar, keepdim int32) {
-	cdimDataPtr := (*C.int64_t)(unsafe.Pointer(&dimData[0]))
+	var cdimDataPtr *C.int64_t
+	if dimData == nil {
+		cdimDataPtr = (*C.int64_t)(nil)
+	} else {
+		cdimDataPtr = (*C.int64_t)(unsafe.Pointer(&dimData[0]))
+	}
 	cdimLen := *(*C.int)(unsafe.Pointer(&dimLen))
 	ckeepdim := *(*C.int)(unsafe.Pointer(&keepdim))
 	C.atg_std_correction_out(ptr, out, self, cdimDataPtr, cdimLen, correction, ckeepdim)
 }
 func AtgStdDim(ptr *Ctensor, self Ctensor, dimData []int64, dimLen int, unbiased int32, keepdim int32) {
-	cdimDataPtr := (*C.int64_t)(unsafe.Pointer(&dimData[0]))
+	var cdimDataPtr *C.int64_t
+	if dimData == nil {
+		cdimDataPtr = (*C.int64_t)(nil)
+	} else {
+		cdimDataPtr = (*C.int64_t)(unsafe.Pointer(&dimData[0]))
+	}
 	cdimLen := *(*C.int)(unsafe.Pointer(&dimLen))
 	cunbiased := *(*C.int)(unsafe.Pointer(&unbiased))
 	ckeepdim := *(*C.int)(unsafe.Pointer(&keepdim))
@@ -11515,26 +11890,46 @@ func AtgStdMean(ptr *Ctensor, self Ctensor, unbiased int32) {
 	C.atg_std_mean(ptr, self, cunbiased)
 }
 func AtgStdMeanCorrection(ptr *Ctensor, self Ctensor, dimData []int64, dimLen int, correction Cscalar, keepdim int32) {
-	cdimDataPtr := (*C.int64_t)(unsafe.Pointer(&dimData[0]))
+	var cdimDataPtr *C.int64_t
+	if dimData == nil {
+		cdimDataPtr = (*C.int64_t)(nil)
+	} else {
+		cdimDataPtr = (*C.int64_t)(unsafe.Pointer(&dimData[0]))
+	}
 	cdimLen := *(*C.int)(unsafe.Pointer(&dimLen))
 	ckeepdim := *(*C.int)(unsafe.Pointer(&keepdim))
 	C.atg_std_mean_correction(ptr, self, cdimDataPtr, cdimLen, correction, ckeepdim)
 }
 func AtgStdMeanCorrectionOut(ptr *Ctensor, out0 Ctensor, out1 Ctensor, self Ctensor, dimData []int64, dimLen int, correction Cscalar, keepdim int32) {
-	cdimDataPtr := (*C.int64_t)(unsafe.Pointer(&dimData[0]))
+	var cdimDataPtr *C.int64_t
+	if dimData == nil {
+		cdimDataPtr = (*C.int64_t)(nil)
+	} else {
+		cdimDataPtr = (*C.int64_t)(unsafe.Pointer(&dimData[0]))
+	}
 	cdimLen := *(*C.int)(unsafe.Pointer(&dimLen))
 	ckeepdim := *(*C.int)(unsafe.Pointer(&keepdim))
 	C.atg_std_mean_correction_out(ptr, out0, out1, self, cdimDataPtr, cdimLen, correction, ckeepdim)
 }
 func AtgStdMeanDim(ptr *Ctensor, self Ctensor, dimData []int64, dimLen int, unbiased int32, keepdim int32) {
-	cdimDataPtr := (*C.int64_t)(unsafe.Pointer(&dimData[0]))
+	var cdimDataPtr *C.int64_t
+	if dimData == nil {
+		cdimDataPtr = (*C.int64_t)(nil)
+	} else {
+		cdimDataPtr = (*C.int64_t)(unsafe.Pointer(&dimData[0]))
+	}
 	cdimLen := *(*C.int)(unsafe.Pointer(&dimLen))
 	cunbiased := *(*C.int)(unsafe.Pointer(&unbiased))
 	ckeepdim := *(*C.int)(unsafe.Pointer(&keepdim))
 	C.atg_std_mean_dim(ptr, self, cdimDataPtr, cdimLen, cunbiased, ckeepdim)
 }
 func AtgStdOut(ptr *Ctensor, out Ctensor, self Ctensor, dimData []int64, dimLen int, unbiased int32, keepdim int32) {
-	cdimDataPtr := (*C.int64_t)(unsafe.Pointer(&dimData[0]))
+	var cdimDataPtr *C.int64_t
+	if dimData == nil {
+		cdimDataPtr = (*C.int64_t)(nil)
+	} else {
+		cdimDataPtr = (*C.int64_t)(unsafe.Pointer(&dimData[0]))
+	}
 	cdimLen := *(*C.int)(unsafe.Pointer(&dimLen))
 	cunbiased := *(*C.int)(unsafe.Pointer(&unbiased))
 	ckeepdim := *(*C.int)(unsafe.Pointer(&keepdim))
@@ -11606,14 +12001,24 @@ func AtgSum(ptr *Ctensor, self Ctensor, dtype int32) {
 	C.atg_sum(ptr, self, cdtype)
 }
 func AtgSumDimIntlist(ptr *Ctensor, self Ctensor, dimData []int64, dimLen int, keepdim int32, dtype int32) {
-	cdimDataPtr := (*C.int64_t)(unsafe.Pointer(&dimData[0]))
+	var cdimDataPtr *C.int64_t
+	if dimData == nil {
+		cdimDataPtr = (*C.int64_t)(nil)
+	} else {
+		cdimDataPtr = (*C.int64_t)(unsafe.Pointer(&dimData[0]))
+	}
 	cdimLen := *(*C.int)(unsafe.Pointer(&dimLen))
 	ckeepdim := *(*C.int)(unsafe.Pointer(&keepdim))
 	cdtype := *(*C.int)(unsafe.Pointer(&dtype))
 	C.atg_sum_dim_intlist(ptr, self, cdimDataPtr, cdimLen, ckeepdim, cdtype)
 }
 func AtgSumIntlistOut(ptr *Ctensor, out Ctensor, self Ctensor, dimData []int64, dimLen int, keepdim int32, dtype int32) {
-	cdimDataPtr := (*C.int64_t)(unsafe.Pointer(&dimData[0]))
+	var cdimDataPtr *C.int64_t
+	if dimData == nil {
+		cdimDataPtr = (*C.int64_t)(nil)
+	} else {
+		cdimDataPtr = (*C.int64_t)(unsafe.Pointer(&dimData[0]))
+	}
 	cdimLen := *(*C.int)(unsafe.Pointer(&dimLen))
 	ckeepdim := *(*C.int)(unsafe.Pointer(&keepdim))
 	cdtype := *(*C.int)(unsafe.Pointer(&dtype))
@@ -11797,19 +12202,34 @@ func AtgToOther(ptr *Ctensor, self Ctensor, other Ctensor, nonBlocking int32, co
 }
 func AtgToPaddedTensor(ptr *Ctensor, self Ctensor, padding float64, outputSizeData []int64, outputSizeLen int) {
 	cpadding := *(*C.double)(unsafe.Pointer(&padding))
-	coutputSizeDataPtr := (*C.int64_t)(unsafe.Pointer(&outputSizeData[0]))
+	var coutputSizeDataPtr *C.int64_t
+	if outputSizeData == nil {
+		coutputSizeDataPtr = (*C.int64_t)(nil)
+	} else {
+		coutputSizeDataPtr = (*C.int64_t)(unsafe.Pointer(&outputSizeData[0]))
+	}
 	coutputSizeLen := *(*C.int)(unsafe.Pointer(&outputSizeLen))
 	C.atg_to_padded_tensor(ptr, self, cpadding, coutputSizeDataPtr, coutputSizeLen)
 }
 func AtgToPaddedTensorOut(ptr *Ctensor, out Ctensor, self Ctensor, padding float64, outputSizeData []int64, outputSizeLen int) {
 	cpadding := *(*C.double)(unsafe.Pointer(&padding))
-	coutputSizeDataPtr := (*C.int64_t)(unsafe.Pointer(&outputSizeData[0]))
+	var coutputSizeDataPtr *C.int64_t
+	if outputSizeData == nil {
+		coutputSizeDataPtr = (*C.int64_t)(nil)
+	} else {
+		coutputSizeDataPtr = (*C.int64_t)(unsafe.Pointer(&outputSizeData[0]))
+	}
 	coutputSizeLen := *(*C.int)(unsafe.Pointer(&outputSizeLen))
 	C.atg_to_padded_tensor_out(ptr, out, self, cpadding, coutputSizeDataPtr, coutputSizeLen)
 }
 func AtgToSparse(ptr *Ctensor, self Ctensor, layout int8, blocksizeData []int64, blocksizeLen int, denseDimVal int64, denseDimNull int) {
 	clayout := *(*C.int8_t)(unsafe.Pointer(&layout))
-	cblocksizeDataPtr := (*C.int64_t)(unsafe.Pointer(&blocksizeData[0]))
+	var cblocksizeDataPtr *C.int64_t
+	if blocksizeData == nil {
+		cblocksizeDataPtr = (*C.int64_t)(nil)
+	} else {
+		cblocksizeDataPtr = (*C.int64_t)(unsafe.Pointer(&blocksizeData[0]))
+	}
 	cblocksizeLen := *(*C.int)(unsafe.Pointer(&blocksizeLen))
 	cdenseDimVal := *(*C.int64_t)(unsafe.Pointer(&denseDimVal))
 	cdenseDimNull := *(*C.uint8_t)(unsafe.Pointer(&denseDimNull))
@@ -12167,7 +12587,12 @@ func AtgUpsampleBicubic2dOut(ptr *Ctensor, out Ctensor, self Ctensor, outputSize
 	C.atg_upsample_bicubic2d_out(ptr, out, self, coutputSizeDataPtr, coutputSizeLen, calignCorners, cscalesHVal, cscalesHNull, cscalesWVal, cscalesWNull)
 }
 func AtgUpsampleBicubic2dVec(ptr *Ctensor, input Ctensor, outputSizeData []int64, outputSizeLen int, alignCorners int32, scaleFactorsData []float64, scaleFactorsLen int) {
-	coutputSizeDataPtr := (*C.int64_t)(unsafe.Pointer(&outputSizeData[0]))
+	var coutputSizeDataPtr *C.int64_t
+	if outputSizeData == nil {
+		coutputSizeDataPtr = (*C.int64_t)(nil)
+	} else {
+		coutputSizeDataPtr = (*C.int64_t)(unsafe.Pointer(&outputSizeData[0]))
+	}
 	coutputSizeLen := *(*C.int)(unsafe.Pointer(&outputSizeLen))
 	calignCorners := *(*C.int)(unsafe.Pointer(&alignCorners))
 	cscaleFactorsDataPtr := (*C.double)(unsafe.Pointer(&scaleFactorsData[0]))
@@ -12219,7 +12644,12 @@ func AtgUpsampleBilinear2dOut(ptr *Ctensor, out Ctensor, self Ctensor, outputSiz
 	C.atg_upsample_bilinear2d_out(ptr, out, self, coutputSizeDataPtr, coutputSizeLen, calignCorners, cscalesHVal, cscalesHNull, cscalesWVal, cscalesWNull)
 }
 func AtgUpsampleBilinear2dVec(ptr *Ctensor, input Ctensor, outputSizeData []int64, outputSizeLen int, alignCorners int32, scaleFactorsData []float64, scaleFactorsLen int) {
-	coutputSizeDataPtr := (*C.int64_t)(unsafe.Pointer(&outputSizeData[0]))
+	var coutputSizeDataPtr *C.int64_t
+	if outputSizeData == nil {
+		coutputSizeDataPtr = (*C.int64_t)(nil)
+	} else {
+		coutputSizeDataPtr = (*C.int64_t)(unsafe.Pointer(&outputSizeData[0]))
+	}
 	coutputSizeLen := *(*C.int)(unsafe.Pointer(&outputSizeLen))
 	calignCorners := *(*C.int)(unsafe.Pointer(&alignCorners))
 	cscaleFactorsDataPtr := (*C.double)(unsafe.Pointer(&scaleFactorsData[0]))
@@ -12227,7 +12657,12 @@ func AtgUpsampleBilinear2dVec(ptr *Ctensor, input Ctensor, outputSizeData []int6
 	C.atg_upsample_bilinear2d_vec(ptr, input, coutputSizeDataPtr, coutputSizeLen, calignCorners, cscaleFactorsDataPtr, cscaleFactorsLen)
 }
 func AtgUpsampleBilinear2dVecOut(ptr *Ctensor, out Ctensor, input Ctensor, outputSizeData []int64, outputSizeLen int, alignCorners int32, scaleFactorsData []float64, scaleFactorsLen int) {
-	coutputSizeDataPtr := (*C.int64_t)(unsafe.Pointer(&outputSizeData[0]))
+	var coutputSizeDataPtr *C.int64_t
+	if outputSizeData == nil {
+		coutputSizeDataPtr = (*C.int64_t)(nil)
+	} else {
+		coutputSizeDataPtr = (*C.int64_t)(unsafe.Pointer(&outputSizeData[0]))
+	}
 	coutputSizeLen := *(*C.int)(unsafe.Pointer(&outputSizeLen))
 	calignCorners := *(*C.int)(unsafe.Pointer(&alignCorners))
 	cscaleFactorsDataPtr := (*C.double)(unsafe.Pointer(&scaleFactorsData[0]))
@@ -12271,7 +12706,12 @@ func AtgUpsampleLinear1dOut(ptr *Ctensor, out Ctensor, self Ctensor, outputSizeD
 	C.atg_upsample_linear1d_out(ptr, out, self, coutputSizeDataPtr, coutputSizeLen, calignCorners, cscalesVal, cscalesNull)
 }
 func AtgUpsampleLinear1dVec(ptr *Ctensor, input Ctensor, outputSizeData []int64, outputSizeLen int, alignCorners int32, scaleFactorsData []float64, scaleFactorsLen int) {
-	coutputSizeDataPtr := (*C.int64_t)(unsafe.Pointer(&outputSizeData[0]))
+	var coutputSizeDataPtr *C.int64_t
+	if outputSizeData == nil {
+		coutputSizeDataPtr = (*C.int64_t)(nil)
+	} else {
+		coutputSizeDataPtr = (*C.int64_t)(unsafe.Pointer(&outputSizeData[0]))
+	}
 	coutputSizeLen := *(*C.int)(unsafe.Pointer(&outputSizeLen))
 	calignCorners := *(*C.int)(unsafe.Pointer(&alignCorners))
 	cscaleFactorsDataPtr := (*C.double)(unsafe.Pointer(&scaleFactorsData[0]))
@@ -12311,7 +12751,12 @@ func AtgUpsampleNearest1dOut(ptr *Ctensor, out Ctensor, self Ctensor, outputSize
 	C.atg_upsample_nearest1d_out(ptr, out, self, coutputSizeDataPtr, coutputSizeLen, cscalesVal, cscalesNull)
 }
 func AtgUpsampleNearest1dVec(ptr *Ctensor, input Ctensor, outputSizeData []int64, outputSizeLen int, scaleFactorsData []float64, scaleFactorsLen int) {
-	coutputSizeDataPtr := (*C.int64_t)(unsafe.Pointer(&outputSizeData[0]))
+	var coutputSizeDataPtr *C.int64_t
+	if outputSizeData == nil {
+		coutputSizeDataPtr = (*C.int64_t)(nil)
+	} else {
+		coutputSizeDataPtr = (*C.int64_t)(unsafe.Pointer(&outputSizeData[0]))
+	}
 	coutputSizeLen := *(*C.int)(unsafe.Pointer(&outputSizeLen))
 	cscaleFactorsDataPtr := (*C.double)(unsafe.Pointer(&scaleFactorsData[0]))
 	cscaleFactorsLen := *(*C.int)(unsafe.Pointer(&scaleFactorsLen))
@@ -12358,14 +12803,24 @@ func AtgUpsampleNearest2dOut(ptr *Ctensor, out Ctensor, self Ctensor, outputSize
 	C.atg_upsample_nearest2d_out(ptr, out, self, coutputSizeDataPtr, coutputSizeLen, cscalesHVal, cscalesHNull, cscalesWVal, cscalesWNull)
 }
 func AtgUpsampleNearest2dVec(ptr *Ctensor, input Ctensor, outputSizeData []int64, outputSizeLen int, scaleFactorsData []float64, scaleFactorsLen int) {
-	coutputSizeDataPtr := (*C.int64_t)(unsafe.Pointer(&outputSizeData[0]))
+	var coutputSizeDataPtr *C.int64_t
+	if outputSizeData == nil {
+		coutputSizeDataPtr = (*C.int64_t)(nil)
+	} else {
+		coutputSizeDataPtr = (*C.int64_t)(unsafe.Pointer(&outputSizeData[0]))
+	}
 	coutputSizeLen := *(*C.int)(unsafe.Pointer(&outputSizeLen))
 	cscaleFactorsDataPtr := (*C.double)(unsafe.Pointer(&scaleFactorsData[0]))
 	cscaleFactorsLen := *(*C.int)(unsafe.Pointer(&scaleFactorsLen))
 	C.atg_upsample_nearest2d_vec(ptr, input, coutputSizeDataPtr, coutputSizeLen, cscaleFactorsDataPtr, cscaleFactorsLen)
 }
 func AtgUpsampleNearest2dVecOut(ptr *Ctensor, out Ctensor, input Ctensor, outputSizeData []int64, outputSizeLen int, scaleFactorsData []float64, scaleFactorsLen int) {
-	coutputSizeDataPtr := (*C.int64_t)(unsafe.Pointer(&outputSizeData[0]))
+	var coutputSizeDataPtr *C.int64_t
+	if outputSizeData == nil {
+		coutputSizeDataPtr = (*C.int64_t)(nil)
+	} else {
+		coutputSizeDataPtr = (*C.int64_t)(unsafe.Pointer(&outputSizeData[0]))
+	}
 	coutputSizeLen := *(*C.int)(unsafe.Pointer(&outputSizeLen))
 	cscaleFactorsDataPtr := (*C.double)(unsafe.Pointer(&scaleFactorsData[0]))
 	cscaleFactorsLen := *(*C.int)(unsafe.Pointer(&scaleFactorsLen))
@@ -12420,7 +12875,12 @@ func AtgUpsampleNearest3dOut(ptr *Ctensor, out Ctensor, self Ctensor, outputSize
 	C.atg_upsample_nearest3d_out(ptr, out, self, coutputSizeDataPtr, coutputSizeLen, cscalesDVal, cscalesDNull, cscalesHVal, cscalesHNull, cscalesWVal, cscalesWNull)
 }
 func AtgUpsampleNearest3dVec(ptr *Ctensor, input Ctensor, outputSizeData []int64, outputSizeLen int, scaleFactorsData []float64, scaleFactorsLen int) {
-	coutputSizeDataPtr := (*C.int64_t)(unsafe.Pointer(&outputSizeData[0]))
+	var coutputSizeDataPtr *C.int64_t
+	if outputSizeData == nil {
+		coutputSizeDataPtr = (*C.int64_t)(nil)
+	} else {
+		coutputSizeDataPtr = (*C.int64_t)(unsafe.Pointer(&outputSizeData[0]))
+	}
 	coutputSizeLen := *(*C.int)(unsafe.Pointer(&outputSizeLen))
 	cscaleFactorsDataPtr := (*C.double)(unsafe.Pointer(&scaleFactorsData[0]))
 	cscaleFactorsLen := *(*C.int)(unsafe.Pointer(&scaleFactorsLen))
@@ -12479,7 +12939,12 @@ func AtgUpsampleTrilinear3dOut(ptr *Ctensor, out Ctensor, self Ctensor, outputSi
 	C.atg_upsample_trilinear3d_out(ptr, out, self, coutputSizeDataPtr, coutputSizeLen, calignCorners, cscalesDVal, cscalesDNull, cscalesHVal, cscalesHNull, cscalesWVal, cscalesWNull)
 }
 func AtgUpsampleTrilinear3dVec(ptr *Ctensor, input Ctensor, outputSizeData []int64, outputSizeLen int, alignCorners int32, scaleFactorsData []float64, scaleFactorsLen int) {
-	coutputSizeDataPtr := (*C.int64_t)(unsafe.Pointer(&outputSizeData[0]))
+	var coutputSizeDataPtr *C.int64_t
+	if outputSizeData == nil {
+		coutputSizeDataPtr = (*C.int64_t)(nil)
+	} else {
+		coutputSizeDataPtr = (*C.int64_t)(unsafe.Pointer(&outputSizeData[0]))
+	}
 	coutputSizeLen := *(*C.int)(unsafe.Pointer(&outputSizeLen))
 	calignCorners := *(*C.int)(unsafe.Pointer(&alignCorners))
 	cscaleFactorsDataPtr := (*C.double)(unsafe.Pointer(&scaleFactorsData[0]))
@@ -12513,19 +12978,34 @@ func AtgVar(ptr *Ctensor, self Ctensor, unbiased int32) {
 	C.atg_var(ptr, self, cunbiased)
 }
 func AtgVarCorrection(ptr *Ctensor, self Ctensor, dimData []int64, dimLen int, correction Cscalar, keepdim int32) {
-	cdimDataPtr := (*C.int64_t)(unsafe.Pointer(&dimData[0]))
+	var cdimDataPtr *C.int64_t
+	if dimData == nil {
+		cdimDataPtr = (*C.int64_t)(nil)
+	} else {
+		cdimDataPtr = (*C.int64_t)(unsafe.Pointer(&dimData[0]))
+	}
 	cdimLen := *(*C.int)(unsafe.Pointer(&dimLen))
 	ckeepdim := *(*C.int)(unsafe.Pointer(&keepdim))
 	C.atg_var_correction(ptr, self, cdimDataPtr, cdimLen, correction, ckeepdim)
 }
 func AtgVarCorrectionOut(ptr *Ctensor, out Ctensor, self Ctensor, dimData []int64, dimLen int, correction Cscalar, keepdim int32) {
-	cdimDataPtr := (*C.int64_t)(unsafe.Pointer(&dimData[0]))
+	var cdimDataPtr *C.int64_t
+	if dimData == nil {
+		cdimDataPtr = (*C.int64_t)(nil)
+	} else {
+		cdimDataPtr = (*C.int64_t)(unsafe.Pointer(&dimData[0]))
+	}
 	cdimLen := *(*C.int)(unsafe.Pointer(&dimLen))
 	ckeepdim := *(*C.int)(unsafe.Pointer(&keepdim))
 	C.atg_var_correction_out(ptr, out, self, cdimDataPtr, cdimLen, correction, ckeepdim)
 }
 func AtgVarDim(ptr *Ctensor, self Ctensor, dimData []int64, dimLen int, unbiased int32, keepdim int32) {
-	cdimDataPtr := (*C.int64_t)(unsafe.Pointer(&dimData[0]))
+	var cdimDataPtr *C.int64_t
+	if dimData == nil {
+		cdimDataPtr = (*C.int64_t)(nil)
+	} else {
+		cdimDataPtr = (*C.int64_t)(unsafe.Pointer(&dimData[0]))
+	}
 	cdimLen := *(*C.int)(unsafe.Pointer(&dimLen))
 	cunbiased := *(*C.int)(unsafe.Pointer(&unbiased))
 	ckeepdim := *(*C.int)(unsafe.Pointer(&keepdim))
@@ -12536,26 +13016,46 @@ func AtgVarMean(ptr *Ctensor, self Ctensor, unbiased int32) {
 	C.atg_var_mean(ptr, self, cunbiased)
 }
 func AtgVarMeanCorrection(ptr *Ctensor, self Ctensor, dimData []int64, dimLen int, correction Cscalar, keepdim int32) {
-	cdimDataPtr := (*C.int64_t)(unsafe.Pointer(&dimData[0]))
+	var cdimDataPtr *C.int64_t
+	if dimData == nil {
+		cdimDataPtr = (*C.int64_t)(nil)
+	} else {
+		cdimDataPtr = (*C.int64_t)(unsafe.Pointer(&dimData[0]))
+	}
 	cdimLen := *(*C.int)(unsafe.Pointer(&dimLen))
 	ckeepdim := *(*C.int)(unsafe.Pointer(&keepdim))
 	C.atg_var_mean_correction(ptr, self, cdimDataPtr, cdimLen, correction, ckeepdim)
 }
 func AtgVarMeanCorrectionOut(ptr *Ctensor, out0 Ctensor, out1 Ctensor, self Ctensor, dimData []int64, dimLen int, correction Cscalar, keepdim int32) {
-	cdimDataPtr := (*C.int64_t)(unsafe.Pointer(&dimData[0]))
+	var cdimDataPtr *C.int64_t
+	if dimData == nil {
+		cdimDataPtr = (*C.int64_t)(nil)
+	} else {
+		cdimDataPtr = (*C.int64_t)(unsafe.Pointer(&dimData[0]))
+	}
 	cdimLen := *(*C.int)(unsafe.Pointer(&dimLen))
 	ckeepdim := *(*C.int)(unsafe.Pointer(&keepdim))
 	C.atg_var_mean_correction_out(ptr, out0, out1, self, cdimDataPtr, cdimLen, correction, ckeepdim)
 }
 func AtgVarMeanDim(ptr *Ctensor, self Ctensor, dimData []int64, dimLen int, unbiased int32, keepdim int32) {
-	cdimDataPtr := (*C.int64_t)(unsafe.Pointer(&dimData[0]))
+	var cdimDataPtr *C.int64_t
+	if dimData == nil {
+		cdimDataPtr = (*C.int64_t)(nil)
+	} else {
+		cdimDataPtr = (*C.int64_t)(unsafe.Pointer(&dimData[0]))
+	}
 	cdimLen := *(*C.int)(unsafe.Pointer(&dimLen))
 	cunbiased := *(*C.int)(unsafe.Pointer(&unbiased))
 	ckeepdim := *(*C.int)(unsafe.Pointer(&keepdim))
 	C.atg_var_mean_dim(ptr, self, cdimDataPtr, cdimLen, cunbiased, ckeepdim)
 }
 func AtgVarOut(ptr *Ctensor, out Ctensor, self Ctensor, dimData []int64, dimLen int, unbiased int32, keepdim int32) {
-	cdimDataPtr := (*C.int64_t)(unsafe.Pointer(&dimData[0]))
+	var cdimDataPtr *C.int64_t
+	if dimData == nil {
+		cdimDataPtr = (*C.int64_t)(nil)
+	} else {
+		cdimDataPtr = (*C.int64_t)(unsafe.Pointer(&dimData[0]))
+	}
 	cdimLen := *(*C.int)(unsafe.Pointer(&dimLen))
 	cunbiased := *(*C.int)(unsafe.Pointer(&unbiased))
 	ckeepdim := *(*C.int)(unsafe.Pointer(&keepdim))

@@ -421,12 +421,23 @@ module Func = struct
                %sLen := len(%s)\n\
                c%sLen := *(*C.int)(unsafe.Pointer(&%sLen))"
               an an an an an an
-        | IntList | IntListOption ->
+        | IntList ->
             Printf.sprintf
               "\n\
                c%sDataPtr := (*C.int64_t)(unsafe.Pointer(&%sData[0]))\n\
                c%sLen := *(*C.int)(unsafe.Pointer(&%sLen))"
               an an an an
+        | IntListOption ->
+            Printf.sprintf
+              "\n\
+               var c%sDataPtr *C.int64_t\n\
+               if %sData == nil{\n\
+                 c%sDataPtr = (*C.int64_t)(nil)\n\
+               }else{\n\
+                 c%sDataPtr = (*C.int64_t)(unsafe.Pointer(&%sData[0]))\n\
+               }\n\
+               c%sLen := *(*C.int)(unsafe.Pointer(&%sLen))"
+              an an an an an an an
         | DoubleList ->
             Printf.sprintf
               "\n\
