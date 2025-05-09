@@ -403,9 +403,9 @@ func (opt *Optimizer) ClipGradNorm(max float64, opts ...ClipOpt) error {
 		option(o)
 	}
 
+	parameters := opt.varstore.TrainableVariables()
 	opt.varstore.Lock()
 	defer opt.varstore.Unlock()
-	parameters := opt.varstore.TrainableVariables()
 	if len(parameters) == 0 {
 		// return ts.MustOfSlice([]float64{0.0}), nil
 		return nil
