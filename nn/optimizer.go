@@ -4,6 +4,7 @@ package nn
 
 import (
 	"fmt"
+	"github.com/sugarme/gotch"
 	"log"
 	"math"
 
@@ -422,19 +423,19 @@ func (opt *Optimizer) ClipGradNorm(max float64, opts ...ClipOpt) error {
 	dtype := parameters[0].DType()
 
 	if o.NormType == math.Inf(1) {
-		for _, v := range opt.varstore.vars {
-			n := v.Tensor.MustGrad(false).MustDetach(true).MustAbs(true).MustMax(true).MustTo(device, true)
+		for _, v := range parameters {
+			n := v.MustGrad(false).MustDetach(true).MustAbs(true).MustMax(true).MustTo(device, true)
 			norms = append(norms, n)
 		}
 		// total_norm = norms[0] if len(norms) == 1 else torch.max(torch.stack(norms))
 		totalNorm = ts.MustStack(norms, 0).MustMax(true)
 	} else {
-		for _, v := range opt.varstore.vars {
+		for _, v := range parameters {
 			// x := v.Tensor.MustGrad(false).MustNorm(true)
 
 			// NOTE. tensor.Norm() is going to be deprecated. So use linalg_norm
 			// Ref. https://pytorch.org/docs/stable/generated/torch.linalg.norm.html#torch.linalg.norm
-			x := v.Tensor.MustGrad(false).MustDetach(true).MustLinalgNorm(ts.FloatScalar(o.NormType), nil, false, dtype, true)
+			x := v.MustGrad(false).MustDetach(true).MustView([]int64{-1}, true).MustLinalgNorm(ts.FloatScalar(o.NormType), nil, false, dtype, true)
 			norms = append(norms, x)
 		}
 	}
@@ -463,13 +464,27 @@ func (opt *Optimizer) ClipGradNorm(max float64, opts ...ClipOpt) error {
 	if clipCoef > 1.0 {
 		clipCoef = 1.0
 	}
-	for _, v := range opt.varstore.vars {
-		if v.Trainable {
-			// p.grad.detach().mul_(clip_coef_clamped.to(p.grad.device))
-			// v.Tensor.MustGrad(false).MustDetach(true).MustMulScalar_(ts.FloatScalar(clipCoef))
-			v.Tensor.MustGrad(false).MustMulScalar_(ts.FloatScalar(clipCoef))
+	clipCoef = 0
+	for _, v := range parameters {
+		//p.grad.detach().mul_(clip_coef_clamped.to(p.grad.device))
+		//v.Tensor.MustGrad(false).MustMulScalar_(ts.FloatScalar(clipCoef))
+
+		// MustMulScalar_ makes a new tensor? or at least it seems like that. memory usage goes crazy
+		// this has reduced memory usage (by a lot)
+		ts.NoGrad(func() {
+			// i am 80% sure that mutating v.MustGrad doesn't actually make the optimizer use any mutations,
+			// so i've implemented a function to access tensor->mutable_grad instead
+			grad := v.MustGrad(false)
+			temp := grad.MustMulScalar(ts.FloatScalar(clipCoef), false)
+			v.SetGrad(temp)
+			temp.MustDrop()
+		})
+		if gotch.Debug {
+			log.Printf("INFO: Clip coef: %.5f\n", clipCoef)
 		}
 	}
+
+	totalNorm.MustDrop()
 
 	return nil
 }
