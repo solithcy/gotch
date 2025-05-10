@@ -148,6 +148,7 @@ void ato_set_weight_decay_group(optimizer t, size_t group, double weight_decay);
 void ato_zero_grad(optimizer);
 void ato_step(optimizer);
 void ato_free(optimizer);
+void at_set_grad(tensor t1, tensor t2);
 
 scalar ats_int(int64_t);
 scalar ats_float(double);

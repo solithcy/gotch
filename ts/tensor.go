@@ -149,7 +149,7 @@ func freeCTensor(ts *Tensor) error {
 		if err != nil {
 			err = fmt.Errorf("ERROR: failed to release tensor %q: %w\n", ts.name, err)
 		}
-		log.Printf(err.Error())
+		// log.Printf(err.Error())
 
 		numel := uint(FlattenDim(shape))
 		dtype := ts.DType()
@@ -1553,4 +1553,8 @@ func CudaSynchronize(cudaDeviceIndexOpt ...int) error {
 	lib.AtcSynchronize(int64(cudaDeviceIndex))
 
 	return TorchErr()
+}
+
+func (ts *Tensor) SetGrad(new *Tensor) {
+	lib.AtSetGrad(ts.ctensor, new.ctensor)
 }

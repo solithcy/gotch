@@ -219,6 +219,12 @@ void at_backward(tensor t, int keep_graph, int create_graph) {
   PROTECT(t->backward({}, keep_graph, create_graph);)
 }
 
+void at_set_grad(tensor t, tensor new_grad) {
+  PROTECT(
+    t->mutable_grad() = *new_grad;
+  )
+}
+
 int at_requires_grad(tensor t) {
   PROTECT(return t->requires_grad();)
   return -1;

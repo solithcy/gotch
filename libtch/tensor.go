@@ -920,3 +920,8 @@ func AtoConstantPadNd(ptr *Ctensor, self Ctensor, padData []int64, padLen int, v
 //
 // return C.atg_randn1(csizeDataPtr, csizeLen, coptionsKind, coptionsDevice)
 // }
+
+// i dont understand this naming scheme, sorry if i got it wrong
+func AtSetGrad(self Ctensor, new Ctensor) {
+	C.at_set_grad(self, new)
+}
