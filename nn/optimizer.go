@@ -464,7 +464,7 @@ func (opt *Optimizer) ClipGradNorm(max float64, opts ...ClipOpt) error {
 	if clipCoef > 1.0 {
 		clipCoef = 1.0
 	}
-	clipCoef = 0
+
 	for _, v := range parameters {
 		//p.grad.detach().mul_(clip_coef_clamped.to(p.grad.device))
 		//v.Tensor.MustGrad(false).MustMulScalar_(ts.FloatScalar(clipCoef))
